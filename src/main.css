@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&family=Nunito+Sans:wght@200;400;800&display=swap");
+.filter {
+  display: flex;
+  justify-content: space-between; }
+
+.filter-checkbox {
+  margin-left: 10px; }
+
+.filterList {
+  display: flex; }
+
+.filterList-item {
+  cursor: pointer;
+  margin-right: 10px; }
+
+.filterList-item--active {
+  font-weight: bold; }
+
+img {
+  width: 50px; }
+
+.listItem {
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px; }
+
+.listItem-title {
+  display: flex; }
+
+.listItem-title h2 {
+  margin: 0 0 0 10px; }
+
+html,
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0; }
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  font-family: 'Nunito Sans', sans-serif; }
+
+a {
+  color: #FFFFFF;
+  text-decoration: none; }
+
+.resetList {
+  list-style: none;
+  margin: 0;
+  padding: 0; }

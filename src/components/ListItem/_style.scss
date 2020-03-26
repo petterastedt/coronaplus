@@ -1,0 +1,18 @@
+img {
+  width: 50px;
+}
+
+.listItem {
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+
+  &-title {
+    display: flex;
+
+    h2 {
+      margin: 0 0 0 10px;
+    }
+  }
+} 
