@@ -18,7 +18,7 @@ const ListItem = (props) => (
             Total cases: {props.itemData.cases.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className="recovered">
-            Recovered: {props.itemData.recoveredPercent.toFixed(2)}%
+            Recovered: {props.itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ({props.itemData.recoveredPercent.toFixed(2)}%)
           </div>
           <div className="active">
             Active cases: {props.itemData.active.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -31,8 +31,11 @@ const ListItem = (props) => (
               Total deaths: {props.itemData.deaths.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </div>
           }
-          {props.itemData.todayDeaths === 0 && props.itemData.todayCases > 0 && 
-            <div className="listItem-noDeaths">NO deaths today!</div>
+          { props.itemData.todayDeaths === 0 && props.itemData.todayCases > 0 &&
+            <div className="listItem-noDeaths highlighted">No reported deaths today!</div>
+          }
+          { props.itemData.daysWithoutDeaths > 1 &&
+            <div className="listItem-noDeaths highlighted">No reported deaths the past {props.itemData.daysWithoutDeaths} days!</div>
           }
         </div>
       </div>

@@ -1,4 +1,8 @@
 .globalStats {
   display: flex;
   justify-content: center;
+
+  &-updated {
+    font-size: $font-size-xs;
+  }
 }

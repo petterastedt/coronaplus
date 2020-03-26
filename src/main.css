@@ -3,6 +3,9 @@
   display: flex;
   justify-content: center; }
 
+.globalStats-updated {
+  font-size: 10px; }
+
 .filter {
   display: flex;
   justify-content: space-between; }

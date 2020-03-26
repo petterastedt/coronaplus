@@ -8,21 +8,23 @@ import GlobalStats from './components/GlobalStats/GlobalStats'
 function App () {
   const [globalData, setGlobalData] = useState(null)
   const [countriesData, setCountriesData] = useState([])
-  const [countriesHistoricalData, setCountriesHistoricalData] = useState([])
   const [hideDeaths, setHideDeaths] = useState(true)
 
   const historyEndpoint = 'https://corona.lmao.ninja/v2/historical/'
 
   useEffect(() => {
     const fetchData = async () => {
-      let countries = await covid.getCountry({ sort: 'recovered' })
-
+      let countries = await covid.getCountry({ sort: 'cases' })
       let countriesCalculted = getCountriesCalculations(countries)
-      const arrOfCountries = await getHistoricalValuesForCountries(countriesCalculted).then(countries => filterLast7Days(countries))
-      setCountriesHistoricalData(arrOfCountries)
-      setCountriesData(countriesCalculted.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
 
-      let allCalculted = await covid.getAll().then(all => getAllCalculations(all))
+      let arrOfCountries = await getHistoricalValuesForCountries(countriesCalculted)
+      let historicalDataFiltered = filterLast7Days(arrOfCountries)
+      let mergedData = mergeData(countriesCalculted, historicalDataFiltered)
+      console.log(mergedData)
+      setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
+
+      let all = await covid.getAll()
+      let allCalculted = getAllCalculations(all)
       console.log(allCalculted)
       setGlobalData(allCalculted)
     }
@@ -32,6 +34,23 @@ function App () {
   const sortCountriesData = sorted => setCountriesData(sorted)
 
   const hide = value => setHideDeaths(value)
+
+  const mergeData = (countryData, historicalData) => {
+    let arr = []
+
+    countryData.forEach((country, i) => {
+      let daysWithoutDeaths = 0
+      historicalData[i].forEach((item, index) => {
+        if (item === historicalData[i][0] && index !== 0 && historicalData[i][index+1] !== item) {
+          daysWithoutDeaths = index+1
+        }
+      })
+      let updatedItem = { ...country, historicalData: historicalData[i].reverse(), daysWithoutDeaths }
+      arr.push(updatedItem)
+    })
+
+    return arr
+  }
 
   const getHistoricalValuesForCountries = async (countries) => {
     const promises = []
@@ -43,14 +62,14 @@ function App () {
     const arrOfCountries = []
     countries.forEach(country => {
       const arr = []
-      for (let key in country.timeline.cases) {
-        if (country.timeline.cases.hasOwnProperty(key)) {
-          arr.push(country.timeline.cases[key])
+      for (let key in country.timeline.deaths) {
+        if (country.timeline.deaths.hasOwnProperty(key)) {
+          arr.push(country.timeline.deaths[key])
         }
       }
       arrOfCountries.push(arr.slice(arr.length - 7))
     })
-    console.log(arrOfCountries)
+
     return arrOfCountries
   }
 
