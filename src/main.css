@@ -13,12 +13,23 @@
 .filterList {
   display: flex; }
 
+.filterList .filterListWrapper {
+  display: flex;
+  flex-direction: column; }
+
 .filterList-item {
   cursor: pointer;
   margin-right: 10px; }
 
 .filterList-item--active {
   font-weight: bold; }
+
+.filterList-subtitle {
+  display: inherit;
+  font-size: 10px;
+  font-style: italic;
+  text-align: right;
+  padding: 5px 12px 0 0; }
 
 img {
   width: 50px; }

@@ -21,14 +21,14 @@ const ListItem = (props) => (
             Recovered: {props.itemData.recoveredPercent.toFixed(2)}%
           </div>
           <div className="active">
-            Active cases: {props.itemData.active}
+            Active cases: {props.itemData.active.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className="nonCritical">
             Non-critical: {props.itemData.nonCriticalPercent.toFixed(2)}%
           </div>
           { !props.hideDeaths &&
             <div className="deaths">
-              Total deaths: {props.itemData.deaths}
+              Total deaths: {props.itemData.deaths.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </div>
           }
           {props.itemData.todayDeaths === 0 && props.itemData.todayCases > 0 && 
