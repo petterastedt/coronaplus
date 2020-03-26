@@ -74,7 +74,7 @@ function App() {
       }
 
       { countriesData ?
-        <ul className="list resetList"> {
+        <ul className="list resetList componentSpacing"> {
           countriesData.map((item, i) => <ListItem itemData={item} hideDeaths={hideDeaths} key={i} />)
         } </ul>
         :

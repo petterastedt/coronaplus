@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&family=Nunito+Sans:wght@200;400;800&display=swap');
 @import './assets/styles/variables';
+@import './components/GlobalStats/style';
 @import './components/Filter/style';
 @import './components/ListItem/style';
 
@@ -27,10 +28,19 @@ a {
   padding: 0;
 }
 
-// .componentSpacing {
-//   margin: $component-spacing-mobile 0;
+.list {
+  margin-top: 0 !important;
+}
 
-//   @media (min-width: $breakpoint-tablet-horizontal) {
-//      margin: $component-spacing 0;
-//   }
-// }
+.componentSpacing {
+  margin: $component-spacing-mobile 0;
+
+  @media (min-width: $breakpoint-tablet-horizontal) {
+     margin: $component-spacing 0;
+  }
+}
+
+.highlighted {
+  color: $color-green;
+  font-weight: 800;
+}
