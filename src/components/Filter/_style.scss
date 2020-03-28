@@ -5,12 +5,18 @@
 
   &-checkbox {
     align-items: center;
+    color: $color-red;
     display: flex;
     font-size: $font-size-s;
+    font-weight: 800;
     margin: 0 0 3px -3px;
 
     @media (min-width: $breakpoint-tablet) {
       margin: 0 0 0 6px;
+    }
+
+    input {
+      margin-right: 7px;
     }
   }
 }
@@ -47,6 +53,14 @@
       margin-right: 10px;
     }
 
+    @media (min-width: $breakpoint-tablet-horizontal + 1) {
+      &:hover {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
     &::after {
       background-color: $color-green;
       bottom: -2px;
@@ -55,7 +69,7 @@
       left: 0;
       opacity: 0;
       position: absolute;
-      transition: opacity 0.4s;
+      transition: opacity 0.3s;
       width: 100%;
     }
 

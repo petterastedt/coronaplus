@@ -11,7 +11,7 @@ const ListItem = (props) => (
               key={props.i}
               className="listItem-flag"/>
           </span>
-          <h2>{props.itemData.country}</h2>
+          <h2 className="listItem-countryname">{props.itemData.country}</h2>
         </div>
         <div className="listItem-alertWrapper">
           { props.itemData.todayDeaths === 0 && props.itemData.todayCases === 0 &&
@@ -27,20 +27,48 @@ const ListItem = (props) => (
       </div>
       <ul className="listItem-stats resetList">
         <li className="recovered listItem-statsItem">
-          <span className={`${props.activeFilter.first === true ? "listItem--filterIsActive" : ""}`}>Recovered:</span><br /> <span className={`${props.activeFilter.first === true ? "highlighted" : ""}`}>{props.itemData.recoveredPercent.toFixed(2)}%</span> ({props.itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
+          <span className={`title ${props.activeFilter.first === true ? "listItem--filterIsActive" : ""}`}>
+            Recovered:
+          </span>
+          <div className="listItem-recoveredWrapper">
+            <span className={`percent ${props.activeFilter.first === true ? "highlighted" : ""}`}>
+              {props.itemData.recoveredPercent.toFixed(2)}%
+            </span>
+            <span>
+              ({props.itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
+            </span>
+          </div>
         </li>
         <li className="nonCritical listItem-statsItem">
-          <span className={`${props.activeFilter.second === true ? "listItem--filterIsActive" : ""}`}>Mild cases:</span><br /> <span className={`${props.activeFilter.second === true ? "highlighted" : ""}`}>{props.itemData.nonCriticalPercent.toFixed(2)}%</span>
+          <span className={`title ${props.activeFilter.second === true ? "listItem--filterIsActive" : ""}`}>
+            Mild cases:
+          </span>
+          <span className={`${props.activeFilter.second === true ? "highlighted" : ""}`}>
+            {props.itemData.nonCriticalPercent.toFixed(2)}%
+          </span>
         </li>
         <li className="active listItem-statsItem">
-          <span className="">Active cases:</span><br />{props.itemData.active.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          <span className="title">
+            Active cases:
+          </span>
+          {props.itemData.active.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </li>
         <li className="cases listItem-statsItem">
-          <span className={`${props.activeFilter.fourth === true ? "listItem--filterIsActive" : ""}`}>Total cases:</span><br /> <span className={`${props.activeFilter.fourth === true ? "listItem--filterIsActive" : ""}`}>{props.itemData.cases.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+          <span className={`title ${props.activeFilter.fourth === true ? "listItem--filterIsActive" : ""}`}>
+            Total cases:
+          </span>
+          <span className={`${props.activeFilter.fourth === true ? "listItem--filterIsActive" : ""}`}>
+            {props.itemData.cases.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </span>
         </li>
           { !props.hideDeaths &&
             <li className="deaths listItem-statsItem">
-              Total deaths:<br /><span className="deaths-number">{props.itemData.deaths.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              <span className="title">
+                Total deaths:
+              </span>
+              <span className="deaths-number">
+                {props.itemData.deaths.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </span>
             </li>
           }
       </ul>

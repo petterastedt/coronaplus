@@ -2,14 +2,18 @@
   animation: fadeInUp .3s forwards;
   animation-delay: 0.5s;
   background-color: $color-box;
-  // border: 1px solid #242742;
   border-radius: 12px;
   box-shadow: 3px 3px 5px 0 #000;
   margin: 13px 0;
   opacity: 0;
   padding: 20px;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &-statsItem {
+    display: flex;
     margin-bottom: 5px;
 
     &:last-child {
@@ -17,8 +21,14 @@
     }
 
     @media (min-width: $breakpoint-tablet) {
+      flex-direction: column;
       margin-bottom: 0;
       text-align: left;
+    }
+
+    .title,
+    .percent {
+      margin-right: 5px;
     }
   }
 
@@ -44,10 +54,10 @@
   &-title {
     align-items: center;
     display: flex;
+  }
 
-    h2 {
-      margin: 0 0 0 10px;
-    }
+  &-countryname {
+    margin: 0 0 0 10px;
   }
 
   &-noDeaths,
@@ -85,17 +95,5 @@
       max-height: 30px;
       max-width: 40px;
     }
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 }

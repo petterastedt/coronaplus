@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import covid from 'novelcovid'
 import Header from './components/Header/Header'
-import Loading from './components/Loading/Loading'
 import Filter from './components/Filter/Filter'
 import ListItem from './components/ListItem/ListItem'
 import GlobalStats from './components/GlobalStats/GlobalStats'
+import Footer from './components/Footer/Footer'
 
 const App = () => {
   const [globalData, setGlobalData] = useState(null)
@@ -22,7 +22,7 @@ const App = () => {
       let arrOfCountries = await getHistoricalValuesForCountries(countriesCalculted)
       let historicalDataFiltered = filterLast7Days(arrOfCountries)
       let mergedData = mergeData(countriesCalculted, historicalDataFiltered)
-      console.log(mergedData)
+
       setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
 
       let all = await covid.getAll()
@@ -36,22 +36,6 @@ const App = () => {
   const sortCountriesData = sorted => setCountriesData(sorted)
   const hide = value => setHideDeaths(value)
   const setFilter = filter => setActiveFilter(filter)
-
-  const mergeData = (countryData, historicalData) => {
-    let arr = []
-
-    countryData.forEach((country, i) => {
-      let daysWithoutDeaths = 0
-      historicalData[i].forEach((item, index) => {
-        if (item === historicalData[i][0] && index !== 0 && historicalData[i][index+1] !== item) {
-          daysWithoutDeaths = index+1
-        }
-      })
-      let updatedItem = { ...country, historicalData: historicalData[i].reverse(), daysWithoutDeaths }
-      arr.push(updatedItem)
-    })
-    return arr
-  }
 
   const getHistoricalValuesForCountries = async (countries) => {
     const promises = []
@@ -73,9 +57,25 @@ const App = () => {
     return arrOfCountries
   }
 
+  const mergeData = (countryData, historicalData) => {
+    let arr = []
+
+    countryData.forEach((country, i) => {
+      let daysWithoutDeaths = 0
+      historicalData[i].forEach((item, index) => {
+        if (item === historicalData[i][0] && index !== 0 && historicalData[i][index+1] !== item) {
+          daysWithoutDeaths = index+1
+        }
+      })
+      let updatedItem = { ...country, historicalData: historicalData[i].reverse(), daysWithoutDeaths }
+      arr.push(updatedItem)
+    })
+    return arr
+  }
+
   const getAllCalculations = data => {
     let updated = new Date(data.updated).toLocaleString('sv-SE')
-    let recoveredPercent = (data.recovered / data.cases) * 100
+    let recoveredPercent = data.recovered / (data.cases - data.deaths) * 100
     let calculated = { ...data, recoveredPercent, updated }
     return calculated
   }
@@ -116,13 +116,17 @@ const App = () => {
           activeFilter={activeFilter}/>
       }
 
-      {countriesData ?
+      {countriesData &&
         <ul className="list resetList componentSpacing"> {
           countriesData.map((item, i) => <ListItem itemData={item} activeFilter={activeFilter} hideDeaths={hideDeaths} key={i} />)
         } </ul>
-        :
-        <Loading />
       }
+
+      <div className="listNotice">
+        <a href="https://github.com/NovelCOVID/API" target="_blank" alt="Link to Github" rel="noopener noreferrer">Data sources</a>
+      </div>
+
+       <Footer />
     </div>
   )
 }

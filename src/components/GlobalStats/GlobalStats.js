@@ -14,7 +14,7 @@ const GlobalStats = props => (
         }
           {}
       </div>
-      <div className="globalStats-recovered">
+      <div className="globalStats-recovered highlighted">
         <strong>Recovered: </strong>
         { props.globalData ? 
           <span>{props.globalData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span> :

@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&family=Nunito+Sans:wght@200;400;800&display=swap');
 @import './assets/styles/variables';
+@import './assets/styles/animations';
 @import './components/GlobalStats/style';
 @import './components/Filter/style';
 @import './components/ListItem/style';
 @import './components/Header/style';
 @import './components/Loading/style';
+@import './components/Footer/style';
 
 html,
 body {
@@ -34,12 +36,13 @@ h2, .h2 {
  }
 }
 
-h3, .h3 {
-}
-
 a {
-  color: $color-text;
+  color: $color-green;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .resetList {
@@ -50,6 +53,10 @@ a {
 
 .list {
   margin-top: 0 !important;
+}
+
+.list.componentSpacing {
+  margin-bottom: 0;
 }
 
 .componentSpacing {
@@ -79,10 +86,21 @@ a {
 
 .container {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: $content-max-width;
+  min-height: 100vh;
   padding: 0 $gutter-mobile;
 
   @media (min-width: $breakpoint-tablet-horizontal) {
     padding: 0 $gutter-desktop;
+  }
+
+  .listNotice {
+    font-size: $font-size-xs;
+    margin-top: 8px;
+
+    a {
+      color: $color-text;
+      margin-left: 10px;
+    }
   }
 }

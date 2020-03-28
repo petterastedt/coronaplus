@@ -1,4 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&family=Nunito+Sans:wght@200;400;800&display=swap");
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0); }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0); } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
 .globalStats {
   display: flex;
   justify-content: center; }
@@ -41,6 +55,7 @@
 
 .globalStats-deaths {
   color: #FF6347;
+  font-weight: 800;
   padding-top: 2px; }
 
 .globalStats-deaths strong {
@@ -53,12 +68,6 @@
 .globalStats-updated strong {
   padding-right: 5px; }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
 .filter {
   display: flex;
   justify-content: space-between;
@@ -66,13 +75,18 @@
 
 .filter-checkbox {
   align-items: center;
+  color: #FF6347;
   display: flex;
   font-size: 14px;
+  font-weight: 800;
   margin: 0 0 3px -3px; }
 
 @media (min-width: 768px) {
   .filter-checkbox {
     margin: 0 0 0 6px; } }
+
+.filter-checkbox input {
+  margin-right: 7px; }
 
 .filterListWrapper {
   display: flex;
@@ -105,6 +119,10 @@
     margin-bottom: 0;
     margin-right: 10px; } }
 
+@media (min-width: 1025px) {
+  .filterList-item:hover:after {
+    opacity: 1; } }
+
 .filterList-item::after {
   background-color: #00D39A;
   bottom: -2px;
@@ -113,7 +131,7 @@
   left: 0;
   opacity: 0;
   position: absolute;
-  transition: opacity 0.4s;
+  transition: opacity 0.3s;
   width: 100%; }
 
 .filterList-item--active {
@@ -149,7 +167,11 @@
   opacity: 0;
   padding: 20px; }
 
+.listItem:last-child {
+  margin-bottom: 0; }
+
 .listItem-statsItem {
+  display: flex;
   margin-bottom: 5px; }
 
 .listItem-statsItem:last-child {
@@ -157,8 +179,13 @@
 
 @media (min-width: 768px) {
   .listItem-statsItem {
+    flex-direction: column;
     margin-bottom: 0;
     text-align: left; } }
+
+.listItem-statsItem .title,
+.listItem-statsItem .percent {
+  margin-right: 5px; }
 
 .listItem-stats, .listItem-titleWrapper {
   display: flex;
@@ -179,7 +206,7 @@
   align-items: center;
   display: flex; }
 
-.listItem-title h2 {
+.listItem-countryname {
   margin: 0 0 0 10px; }
 
 .listItem-noDeaths, .listItem-noData {
@@ -211,14 +238,6 @@
     max-height: 30px;
     max-width: 40px; } }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0); }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0); } }
-
 .header {
   margin: 20px 0 50px 0; }
 
@@ -242,6 +261,13 @@
 
 .loading {
   font-size: inherit; }
+
+.footer.componentSpacing {
+  margin-bottom: 20px; }
+
+.footer {
+  font-size: 10px;
+  text-align: center; }
 
 html,
 body {
@@ -268,8 +294,11 @@ h2, .h2 {
     font-size: 26px; } }
 
 a {
-  color: #FFFFFF;
+  color: #00D39A;
   text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
 
 .resetList {
   list-style: none;
@@ -278,6 +307,9 @@ a {
 
 .list {
   margin-top: 0 !important; }
+
+.list.componentSpacing {
+  margin-bottom: 0; }
 
 .componentSpacing {
   margin: 50px 0; }
@@ -303,9 +335,18 @@ a {
 
 .container {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 810px;
+  min-height: 100vh;
   padding: 0 20px; }
 
 @media (min-width: 1024px) {
   .container {
     padding: 0 40px; } }
+
+.container .listNotice {
+  font-size: 10px;
+  margin-top: 8px; }
+
+.container .listNotice a {
+  color: #FFFFFF;
+  margin-left: 10px; }
