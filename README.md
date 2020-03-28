@@ -8,4 +8,4 @@ Created using React and NovelCovid API
 ## TODO:
 
 - [ ] Refactor javascript
-- [x] Deploy
+- [x] ~~Deploy~~
