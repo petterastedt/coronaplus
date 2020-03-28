@@ -6,8 +6,11 @@ $breakpoint-desktop: 1260px;
 $breakpoint-desktop-wide: 1440px;
 
 $color-accent: #1c2730;
-$color-background: #161B40;
-$color-green: #41B853;
+$color-background: #191919;
+$color-box: rgba(255, 255, 255, 0.12);
+$color-green: #00D39A;
+$color-red: #FF6347;
+// #4cff4c
 $color-text: #FFFFFF;
 $color-text-alternative: #c0c65a;
 
@@ -20,3 +23,6 @@ $component-spacing-mobile: 50px;
 $component-spacing: 100px;
 
 $font-size-xs: 10px;
+$font-size-s: 14px;
+$font-size-l: 22px;
+$font-size-xl: 28px;

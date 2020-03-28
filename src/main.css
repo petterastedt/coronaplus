@@ -3,29 +3,134 @@
   display: flex;
   justify-content: center; }
 
+.globalStats .globalStatsTextWrapper {
+  width: 100%; }
+
+@media (min-width: 768px) {
+  .globalStats .globalStatsTextWrapper {
+    width: unset; } }
+
+.globalStats-total, .globalStats-recovered, .globalStats-deaths, .globalStats-updated {
+  display: flex; }
+
+.globalStats-total span, .globalStats-recovered span, .globalStats-deaths span, .globalStats-updated span {
+  animation: fadeIn 1s forwards; }
+
+.globalStats-total {
+  font-size: 28px; }
+
+@media (min-width: 768px) {
+  .globalStats-total {
+    font-size: 43px; } }
+
+.globalStats-total strong {
+  padding-right: 12px; }
+
+.globalStats-recovered {
+  font-size: 20px; }
+
+@media (min-width: 768px) {
+  .globalStats-recovered {
+    font-size: 22px; } }
+
+.globalStats-recovered .globalStats-recoveredNumber {
+  padding-left: 10px; }
+
+.globalStats-recovered strong {
+  padding-right: 8px; }
+
+.globalStats-deaths {
+  color: #FF6347;
+  padding-top: 2px; }
+
+.globalStats-deaths strong {
+  padding-right: 6px; }
+
 .globalStats-updated {
-  font-size: 10px; }
+  font-size: 10px;
+  padding-top: 6px; }
+
+.globalStats-updated strong {
+  padding-right: 5px; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
 .filter {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  flex-direction: column; }
 
 .filter-checkbox {
-  margin-left: 10px; }
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  margin: 0 0 3px -3px; }
 
-.filterList {
-  display: flex; }
+@media (min-width: 768px) {
+  .filter-checkbox {
+    margin: 0 0 0 6px; } }
 
-.filterList .filterListWrapper {
+.filterListWrapper {
   display: flex;
   flex-direction: column; }
 
+@media (min-width: 768px) {
+  .filterListWrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 0 0 10px; } }
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  width: fit-content; }
+
+@media (min-width: 768px) {
+  .filterList {
+    flex-direction: row;
+    width: unset; } }
+
 .filterList-item {
   cursor: pointer;
-  margin-right: 10px; }
+  font-size: 14px;
+  margin-bottom: 3px;
+  position: relative; }
+
+@media (min-width: 768px) {
+  .filterList-item {
+    margin-bottom: 0;
+    margin-right: 10px; } }
+
+.filterList-item::after {
+  background-color: #00D39A;
+  bottom: -2px;
+  content: "";
+  height: 2px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.4s;
+  width: 100%; }
 
 .filterList-item--active {
-  font-weight: bold; }
+  font-weight: 800; }
+
+.filterList-item--active::after {
+  opacity: 1; }
+
+.filterList-label {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 3px; }
+
+@media (min-width: 768px) {
+  .filterList-label {
+    margin-bottom: 0;
+    margin-right: 10px; } }
 
 .filterList-subtitle {
   display: inherit;
@@ -34,29 +139,133 @@
   text-align: right;
   padding: 5px 12px 0 0; }
 
-img {
-  width: 50px; }
-
 .listItem {
-  border: 1px solid;
-  border-radius: 4px;
-  margin: 10px;
-  padding: 10px; }
+  animation: fadeInUp .3s forwards;
+  animation-delay: 0.5s;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 3px 3px 5px 0 #000;
+  margin: 13px 0;
+  opacity: 0;
+  padding: 20px; }
+
+.listItem-statsItem {
+  margin-bottom: 5px; }
+
+.listItem-statsItem:last-child {
+  margin-bottom: 0; }
+
+@media (min-width: 768px) {
+  .listItem-statsItem {
+    margin-bottom: 0;
+    text-align: left; } }
+
+.listItem-stats, .listItem-titleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+@media (min-width: 768px) {
+  .listItem-stats, .listItem-titleWrapper {
+    flex-direction: row; } }
+
+.listItem-stats {
+  line-height: 21px; }
+
+.listItem-titleWrapper {
+  margin-bottom: 10px; }
 
 .listItem-title {
+  align-items: center;
   display: flex; }
 
 .listItem-title h2 {
   margin: 0 0 0 10px; }
 
+.listItem-noDeaths, .listItem-noData {
+  background-color: #00D39A;
+  font-size: 10px;
+  padding-top: 5px; }
+
+@media (min-width: 768px) {
+  .listItem-noDeaths, .listItem-noData {
+    padding-top: 0; } }
+
+.listItem-noData {
+  background-color: #FF6347;
+  font-weight: 800; }
+
+.listItem .deaths-number {
+  color: #FF6347;
+  font-weight: 800; }
+
+.listItem--filterIsActive {
+  font-weight: 800; }
+
+.listItem img {
+  max-height: 25px;
+  max-width: 30px; }
+
+@media (min-width: 768px) {
+  .listItem img {
+    max-height: 30px;
+    max-width: 40px; } }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0); }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0); } }
+
+.header {
+  margin: 20px 0 50px 0; }
+
+@media (min-width: 1024px) {
+  .header {
+    margin-bottom: 100px 0; } }
+
+.header .headerWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 500;
+  margin: 0 auto; }
+
+.header-title span {
+  color: #00D39A;
+  font-weight: 800; }
+
+.header-subtitle {
+  font-size: 10px; }
+
+.loading {
+  font-size: inherit; }
+
 html,
 body {
+  background-color: #191919;
+  color: #FFFFFF;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  font-family: 'Nunito Sans', sans-serif; }
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0;
+  padding: 0; }
+
+h1 {
+  font-size: 20px;
+  font-weight: 500; }
+
+h2, .h2 {
+  font-size: 22px; }
+
+@media (min-width: 768px) {
+  h2, .h2 {
+    font-size: 26px; } }
 
 a {
   color: #FFFFFF;
@@ -78,5 +287,25 @@ a {
     margin: 100px 0; } }
 
 .highlighted {
-  color: #41B853;
+  color: #00D39A;
   font-weight: 800; }
+
+.highlightTag {
+  color: #191919;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 3px 6px;
+  width: fit-content; }
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px; }
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 40px; } }

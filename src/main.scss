@@ -3,11 +3,13 @@
 @import './components/GlobalStats/style';
 @import './components/Filter/style';
 @import './components/ListItem/style';
+@import './components/Header/style';
+@import './components/Loading/style';
 
 html,
 body {
-  // background-color: $color-background;
-  // color: $color-text;
+  background-color: $color-background;
+  color: $color-text;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
@@ -15,6 +17,24 @@ body {
 
 h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6 {
   font-family: 'Nunito Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+h2, .h2 {
+  font-size: $font-size-l;
+
+  @media (min-width: $breakpoint-tablet) {
+    font-size: 26px;
+ }
+}
+
+h3, .h3 {
 }
 
 a {
@@ -43,4 +63,26 @@ a {
 .highlighted {
   color: $color-green;
   font-weight: 800;
+}
+
+.highlightTag {
+  color: $color-background;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 3px 6px;
+  width: fit-content;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 $gutter-mobile;
+
+  @media (min-width: $breakpoint-tablet-horizontal) {
+    padding: 0 $gutter-desktop;
+  }
 }

@@ -2,7 +2,78 @@
   display: flex;
   justify-content: center;
 
+  .globalStatsTextWrapper {
+    width: 100%;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: unset;
+    }
+  }
+
+  &-total,
+  &-recovered,
+  &-deaths,
+  &-updated {
+    display: flex;
+
+    span {
+      animation: fadeIn 1s forwards;
+    }
+  }
+
+  &-total {
+    font-size: $font-size-xl;
+
+    @media (min-width: $breakpoint-tablet) {
+      font-size: 43px;
+    }
+
+    strong {
+      padding-right: 12px;
+    }
+  }
+
+  &-recovered {
+    font-size: 20px;
+
+    @media (min-width: $breakpoint-tablet) {
+      font-size: $font-size-l;
+    }
+
+    .globalStats-recoveredNumber {
+      padding-left: 10px;
+    }
+
+    strong {
+      padding-right: 8px;
+    }
+  }
+
+  &-deaths {
+    color: $color-red;
+    padding-top: 2px;
+
+    strong {
+      padding-right: 6px;
+    }
+  }
+
   &-updated {
     font-size: $font-size-xs;
+    padding-top: 6px;
+
+    strong {
+      padding-right: 5px;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
   }
 }

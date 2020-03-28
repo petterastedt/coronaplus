@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import covid from 'novelcovid'
+import Header from './components/Header/Header'
 import Loading from './components/Loading/Loading'
 import Filter from './components/Filter/Filter'
 import ListItem from './components/ListItem/ListItem'
 import GlobalStats from './components/GlobalStats/GlobalStats'
 
-function App () {
+const App = () => {
   const [globalData, setGlobalData] = useState(null)
   const [countriesData, setCountriesData] = useState([])
   const [hideDeaths, setHideDeaths] = useState(true)
+  const [activeFilter, setActiveFilter] = useState({ first: true })
 
   const historyEndpoint = 'https://corona.lmao.ninja/v2/historical/'
 
@@ -25,15 +27,15 @@ function App () {
 
       let all = await covid.getAll()
       let allCalculted = getAllCalculations(all)
-      console.log(allCalculted)
+
       setGlobalData(allCalculted)
     }
     fetchData()
   }, [])
 
   const sortCountriesData = sorted => setCountriesData(sorted)
-
   const hide = value => setHideDeaths(value)
+  const setFilter = filter => setActiveFilter(filter)
 
   const mergeData = (countryData, historicalData) => {
     let arr = []
@@ -48,7 +50,6 @@ function App () {
       let updatedItem = { ...country, historicalData: historicalData[i].reverse(), daysWithoutDeaths }
       arr.push(updatedItem)
     })
-
     return arr
   }
 
@@ -69,7 +70,6 @@ function App () {
       }
       arrOfCountries.push(arr.slice(arr.length - 7))
     })
-
     return arrOfCountries
   }
 
@@ -100,26 +100,25 @@ function App () {
 
   return (
     <div className="container">
+      <Header />
 
-      {globalData ?
-        <GlobalStats
-          hideDeaths={hideDeaths}
-          globalData={globalData} />
-        :
-        <Loading />
-      }
+      <GlobalStats
+        hideDeaths={hideDeaths}
+        globalData={globalData} />
 
       {countriesData &&
         <Filter
           countriesState={countriesData}
           hide={hide}
           hideDeaths={hideDeaths}
-          sortCountriesData={sortCountriesData} />
+          setFilter={setFilter}
+          sortCountriesData={sortCountriesData} 
+          activeFilter={activeFilter}/>
       }
 
       {countriesData ?
         <ul className="list resetList componentSpacing"> {
-          countriesData.map((item, i) => <ListItem itemData={item} hideDeaths={hideDeaths} key={i} />)
+          countriesData.map((item, i) => <ListItem itemData={item} activeFilter={activeFilter} hideDeaths={hideDeaths} key={i} />)
         } </ul>
         :
         <Loading />

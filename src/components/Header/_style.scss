@@ -1,0 +1,26 @@
+.header {
+  margin: 20px 0 $component-spacing-mobile 0;
+
+  @media (min-width: $breakpoint-tablet-horizontal) {
+     margin-bottom: $component-spacing 0;
+  }
+
+  .headerWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: 500;
+    margin: 0 auto;
+  }
+
+  &-title {
+    span {
+      color: $color-green;
+      font-weight: 800;
+    }
+  }
+
+  &-subtitle {
+    font-size: $font-size-xs;
+  }
+}

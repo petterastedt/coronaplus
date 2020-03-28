@@ -9,6 +9,7 @@
     "node-sass": "^4.13.1",
     "novelcovid": "^1.0.7-b3",
     "react": "^16.13.1",
+    "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
