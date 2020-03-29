@@ -44,12 +44,17 @@
   }
 
   &-stats {
+    font-size: $font-size-s;
     line-height: 21px;
   }
 
   &-titleWrapper {
     display: flex;
     margin-bottom: 10px;
+
+    @media (min-width: $breakpoint-tablet) {
+      margin-bottom: 13px;
+    }
   }
 
   &-title {
@@ -103,10 +108,5 @@
   img {
     max-height: 25px;
     max-width: 30px;
-
-    @media (min-width: $breakpoint-tablet) {
-      max-height: 30px;
-      max-width: 40px;
-    }
   }
 }

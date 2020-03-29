@@ -30,11 +30,7 @@ h1 {
 }
 
 h2, .h2 {
-  font-size: 20px;
-
-  @media (min-width: $breakpoint-tablet) {
-    font-size: $font-size-l;
- }
+  font-size: 18px;
 }
 
 a {
@@ -83,6 +79,12 @@ a {
   margin-top: 8px;
   padding: 3px 6px;
   width: fit-content;
+
+  @media (min-width: $breakpoint-tablet-horizontal) {
+    &:first-child {
+      margin-top: 0;
+    }
+ }
 }
 
 .container {
