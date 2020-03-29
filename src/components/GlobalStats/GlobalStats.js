@@ -45,18 +45,6 @@ const GlobalStats = props => (
         }
       </div>
     </div>
-    {/* { !props.countriesData && console.log(props.countriesData.sort((a,b)=>b.recoveredPercent-a.recoveredPercent)[0].country) } */}
-    {/* <ul className="globalStats-summary resetList">
-      { props.globalData && props.countriesData &&
-        <li className="summaryItem"><span>{props.countriesData.filter(item => item.recoveredPercent)}</span></li>
-      }
-      // <li className="summaryItem">
-      //   <span>{props.globalData.recoveredPercent.toFixed(2)}%</span>
-      //   of the infected people have now recovered.
-      // </li>
-      
-     
-    </ul> */}
   </div>
 )
 
