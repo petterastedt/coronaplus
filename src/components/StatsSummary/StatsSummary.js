@@ -36,7 +36,7 @@ const StatsSummary = (props) => (
         In <span className="highlighted">
           {props.globalData.criticalLessThanFive.toFixed()}%
         </span>
-          of the countries with active cases, <span className="highlighted">less than 5% are critical.</span>*
+          of the countries with active cases, <span className="highlighted">less than 5% of them are critical.</span>*
       </li>
     </ul>
     <div className="listNotice">
