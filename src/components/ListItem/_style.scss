@@ -2,7 +2,7 @@
   animation: fadeInUp .3s forwards;
   animation-delay: 0.5s;
   background-color: $color-box;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 3px 3px 5px 0 #000;
   margin: 13px 0;
   opacity: 0;
@@ -48,6 +48,7 @@
   }
 
   &-titleWrapper {
+    display: flex;
     margin-bottom: 10px;
   }
 
@@ -60,20 +61,32 @@
     margin: 0 0 0 10px;
   }
 
+  &-alertWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
   &-noDeaths,
   &-noData {
+    align-self: flex-start;
     background-color: $color-green;
     font-size: $font-size-xs;
     padding-top: 5px;
 
     @media (min-width: $breakpoint-tablet) {
+      align-self: flex-end;
       padding-top: 0;
     }
   }
 
   &-noData {
+    align-self: flex-start;
     background-color: $color-red;
     font-weight: 800;
+
+    @media (min-width: $breakpoint-tablet) {
+      align-self: flex-end;
+    }
   }
 
   .deaths {

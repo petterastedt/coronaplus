@@ -2,6 +2,7 @@
 @import './assets/styles/variables';
 @import './assets/styles/animations';
 @import './components/GlobalStats/style';
+@import './components/StatsSummary/style';
 @import './components/Filter/style';
 @import './components/ListItem/style';
 @import './components/Header/style';
@@ -29,10 +30,10 @@ h1 {
 }
 
 h2, .h2 {
-  font-size: $font-size-l;
+  font-size: 20px;
 
   @media (min-width: $breakpoint-tablet) {
-    font-size: 26px;
+    font-size: $font-size-l;
  }
 }
 
@@ -87,7 +88,6 @@ a {
 .container {
   margin: 0 auto;
   max-width: $content-max-width;
-  min-height: 100vh;
   padding: 0 $gutter-mobile;
 
   @media (min-width: $breakpoint-tablet-horizontal) {

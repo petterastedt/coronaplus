@@ -20,7 +20,7 @@ const ListItem = (props) => (
           { props.itemData.todayDeaths === 0 && props.itemData.todayCases > 0 &&
             <div className="listItem-noDeaths highlighted highlightTag">No reported deaths today!</div>
           }
-          { props.itemData.daysWithoutDeaths > 1 &&
+          { props.itemData.daysWithoutDeaths > 1 && props.itemData.todayDeaths === 0 &&
             <div className="listItem-noDeaths highlighted highlightTag">No reported deaths the past {props.itemData.daysWithoutDeaths} days!</div>
           }
         </div>

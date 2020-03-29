@@ -1,0 +1,44 @@
+.statsSummary {
+  animation: fadeInUp .3s forwards;
+  opacity: 0;
+
+  &-title {
+    font-size: $font-size-s;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+
+    @media (min-width: $breakpoint-tablet-horizontal) {
+      padding-left: 12px;
+   }
+  }
+
+  &-list {
+    padding: 0 20px;
+
+    @media (min-width: $breakpoint-tablet-horizontal) {
+      padding: 0 28px;
+   }
+  }
+
+  &-item {
+    font-size: $font-size-s;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    span,
+    strong {
+      padding-right: 3px;
+    }
+
+    strong {
+      padding-left: 2px;
+    }
+  }
+
+  .listNotice {
+    padding-left: 12px;
+  }
+}

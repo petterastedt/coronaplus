@@ -4,6 +4,7 @@ import Header from './components/Header/Header'
 import Filter from './components/Filter/Filter'
 import ListItem from './components/ListItem/ListItem'
 import GlobalStats from './components/GlobalStats/GlobalStats'
+import StatsSummary from './components/StatsSummary/StatsSummary'
 import Footer from './components/Footer/Footer'
 
 const App = () => {
@@ -26,7 +27,7 @@ const App = () => {
       setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
 
       let all = await covid.getAll()
-      let allCalculted = getAllCalculations(all)
+      let allCalculted = getAllCalculations(all, mergedData)
 
       setGlobalData(allCalculted)
     }
@@ -73,10 +74,14 @@ const App = () => {
     return arr
   }
 
-  const getAllCalculations = data => {
+  const getAllCalculations = (data, countriesData) => {
     let updated = new Date(data.updated).toLocaleString('sv-SE')
     let recoveredPercent = data.recovered / (data.cases - data.deaths) * 100
-    let calculated = { ...data, recoveredPercent, updated }
+    let mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
+    let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 1 && item.todayDeaths === 0)
+    let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
+
+    let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive }
     return calculated
   }
 
@@ -103,8 +108,14 @@ const App = () => {
       <Header />
 
       <GlobalStats
+        countriesData={countriesData}
         hideDeaths={hideDeaths}
         globalData={globalData} />
+
+      {globalData &&
+        <StatsSummary
+          globalData={globalData} />
+      }
 
       {countriesData &&
         <Filter

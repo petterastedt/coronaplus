@@ -32,13 +32,25 @@
   }
 }
 
+.filterCategoriesWrapper {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $breakpoint-tablet) {
+    flex-direction: row;
+  }
+}
+
 .filterList {
   display: flex;
   flex-direction: column;
   width: fit-content;
 
-  @media (min-width: $breakpoint-tablet) {
+  @media (min-width: $breakpoint-mobile-narrow) {
     flex-direction: row;
+  }
+
+  @media (min-width: $breakpoint-tablet) {
     width: unset;
   }
 
@@ -46,7 +58,12 @@
     cursor: pointer;
     font-size: $font-size-s;
     margin-bottom: 3px;
+    margin-right: 9px;
     position: relative;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     @media (min-width: $breakpoint-tablet) {
       margin-bottom: 0;
