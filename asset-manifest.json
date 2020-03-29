@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/coronaplus/static/css/main.2155459c.chunk.css",
-    "main.js": "/coronaplus/static/js/main.6d19e2ef.chunk.js",
-    "main.js.map": "/coronaplus/static/js/main.6d19e2ef.chunk.js.map",
+    "main.css": "/coronaplus/static/css/main.2fed2b5c.chunk.css",
+    "main.js": "/coronaplus/static/js/main.7153d490.chunk.js",
+    "main.js.map": "/coronaplus/static/js/main.7153d490.chunk.js.map",
     "runtime-main.js": "/coronaplus/static/js/runtime-main.98827ee8.js",
     "runtime-main.js.map": "/coronaplus/static/js/runtime-main.98827ee8.js.map",
     "static/js/2.fafaa4f6.chunk.js": "/coronaplus/static/js/2.fafaa4f6.chunk.js",
     "static/js/2.fafaa4f6.chunk.js.map": "/coronaplus/static/js/2.fafaa4f6.chunk.js.map",
     "index.html": "/coronaplus/index.html",
-    "precache-manifest.18b41d9d6be732063a2e7872691a7ef7.js": "/coronaplus/precache-manifest.18b41d9d6be732063a2e7872691a7ef7.js",
+    "precache-manifest.57fdb0f504d5ee8ffb894ce946c464f8.js": "/coronaplus/precache-manifest.57fdb0f504d5ee8ffb894ce946c464f8.js",
     "service-worker.js": "/coronaplus/service-worker.js",
-    "static/css/main.2155459c.chunk.css.map": "/coronaplus/static/css/main.2155459c.chunk.css.map",
+    "static/css/main.2fed2b5c.chunk.css.map": "/coronaplus/static/css/main.2fed2b5c.chunk.css.map",
     "static/js/2.fafaa4f6.chunk.js.LICENSE.txt": "/coronaplus/static/js/2.fafaa4f6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.98827ee8.js",
     "static/js/2.fafaa4f6.chunk.js",
-    "static/css/main.2155459c.chunk.css",
-    "static/js/main.6d19e2ef.chunk.js"
+    "static/css/main.2fed2b5c.chunk.css",
+    "static/js/main.7153d490.chunk.js"
   ]
 }
