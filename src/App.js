@@ -45,6 +45,7 @@ const App = () => {
   }
 
   const filterLast7Days = countries => {
+
     const arrOfCountries = []
     countries.forEach(country => {
       const arr = []
@@ -63,12 +64,12 @@ const App = () => {
 
     countryData.forEach((country, i) => {
       let daysWithoutDeaths = 0
-      historicalData[i].forEach((item, index) => {
-        if (item === historicalData[i][0] && index !== 0 && historicalData[i][index+1] !== item) {
+      historicalData[i].reverse().forEach((item, index) => {
+        if (item === historicalData[i][0] && index !== 0 && item !== historicalData[i][index+1]) {
           daysWithoutDeaths = index+1
         }
       })
-      let updatedItem = { ...country, historicalData: historicalData[i].reverse(), daysWithoutDeaths }
+      let updatedItem = { ...country, historicalData: historicalData[i], daysWithoutDeaths }
       arr.push(updatedItem)
     })
     return arr
@@ -78,7 +79,7 @@ const App = () => {
     let updated = new Date(data.updated).toLocaleString('sv-SE')
     let recoveredPercent = data.recovered / (data.cases - data.deaths) * 100
     let mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
-    let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 1 && item.todayDeaths === 0)
+    let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
     let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
 
     let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive }
