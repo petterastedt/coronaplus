@@ -10,7 +10,7 @@ const StatsSummary = (props) => (
         <strong>
           {props.globalData.mostRecovered[0].country}
         </strong>
-          has the highest amount of recovered paitents <span className="highlighted">({props.globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>
+          has the highest amount of recovered patients <span className="highlighted">({props.globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>
         , followed by
         <strong>
           {props.globalData.mostRecovered[1].country}
@@ -29,7 +29,7 @@ const StatsSummary = (props) => (
         { props.globalData.noDeaths &&
           <li className="statsSummary-item">
             {props.globalData.noDeaths.map((item, index) => <span className="highlighted" key={index}>{item.country}{index === 0 && props.globalData.noDeaths.length === 2 && " and "}{index === 0 && props.globalData.noDeaths.length > 2 && ", "} {index === 1 && props.globalData.noDeaths.length > 2 && " and "}</span>).slice(0, 3)}
-            {props.globalData.noDeaths.length > 3 && "is some of the countries that"} has had <strong>multiple days</strong> without any reported deaths.
+            {props.globalData.noDeaths.length > 3 && "are some of the countries that"} has had <strong>multiple days</strong> without any reported deaths.
         </li>
         }
       <li className="statsSummary-item">
