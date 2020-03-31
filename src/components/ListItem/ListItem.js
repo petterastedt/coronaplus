@@ -34,6 +34,11 @@ const ListItem = (props) => (
             <span className={`percent ${props.activeFilter.first === true ? "highlighted" : ""}`}>
               {props.itemData.recoveredPercent.toFixed(2)}%
             </span>
+            { props.itemData.recoveredPercent > props.itemData.recoveredYesterday ? <div className="highlighted plus" title="Percent of recovered increased since yesterday">&#8593;</div>
+              : props.itemData.recoveredPercent === props.itemData.recoveredYesterday ? <div className="highlighted equal" title="No change since yesterday">-</div>
+              : <div className="highlighted minus" title="Percent of recovered decreased since yesterday">&#8595;</div>
+            }
+
             <span>
               ({props.itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
             </span>

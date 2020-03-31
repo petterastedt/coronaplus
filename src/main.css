@@ -102,6 +102,9 @@
 .statsSummary-item strong {
   padding-left: 4px; }
 
+.statsSummary-item strong.country {
+  padding-left: 0; }
+
 .statsSummary .listNotice {
   padding-left: 12px; }
 
@@ -222,6 +225,9 @@
 .listItem:last-child {
   margin-bottom: 0; }
 
+.listItem-recoveredWrapper {
+  display: flex; }
+
 .listItem-statsItem {
   display: flex;
   margin-bottom: 5px; }
@@ -234,6 +240,24 @@
     flex-direction: column;
     margin-bottom: 0;
     text-align: left; } }
+
+.listItem-statsItem .percent {
+  display: flex; }
+
+.listItem-statsItem .minus {
+  color: #FF6347; }
+
+.listItem-statsItem .equal {
+  color: #FFC947; }
+
+.listItem-statsItem .minus,
+.listItem-statsItem .plus,
+.listItem-statsItem .equal {
+  cursor: context-menu;
+  font-size: 21px;
+  line-height: 18px;
+  margin-bottom: -5px;
+  margin-right: 5px; }
 
 .listItem-statsItem .title,
 .listItem-statsItem .percent {

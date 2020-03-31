@@ -12,6 +12,10 @@
     margin-bottom: 0;
   }
 
+  &-recoveredWrapper {
+    display: flex;
+  }
+
   &-statsItem {
     display: flex;
     margin-bottom: 5px;
@@ -24,6 +28,28 @@
       flex-direction: column;
       margin-bottom: 0;
       text-align: left;
+    }
+
+    .percent {
+      display: flex;
+    }
+
+    .minus {
+      color: $color-red;
+    }
+
+    .equal {
+      color: $color-orange;
+    }
+
+    .minus,
+    .plus,
+    .equal {
+      cursor: context-menu;
+      font-size: 21px;
+      line-height: 18px;
+      margin-bottom: -5px;
+      margin-right: 5px;
     }
 
     .title,

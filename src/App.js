@@ -22,7 +22,7 @@ const App = () => {
 
       let arrOfCountries = await getHistoricalValuesForCountries(countriesCalculted)
       let historicalDataFiltered = filterLast7Days(arrOfCountries)
-      let mergedData = mergeData(countriesCalculted, historicalDataFiltered)
+      let mergedData = mergeData(countriesCalculted, historicalDataFiltered, arrOfCountries)
 
       setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
 
@@ -45,7 +45,6 @@ const App = () => {
   }
 
   const filterLast7Days = countries => {
-
     const arrOfCountries = []
     countries.forEach(country => {
       const arr = []
@@ -59,17 +58,31 @@ const App = () => {
     return arrOfCountries
   }
 
-  const mergeData = (countryData, historicalData) => {
+  const mergeData = (countryData, historicalData, historicalAll) => {
     let arr = []
 
     countryData.forEach((country, i) => {
       let daysWithoutDeaths = 0
+      let recoveredYesterday
+      let recoveredDifference
       historicalData[i].reverse().forEach((item, index) => {
         if (item === historicalData[i][0] && index !== 0 && item !== historicalData[i][index+1]) {
           daysWithoutDeaths = index+1
         }
       })
-      let updatedItem = { ...country, historicalData: historicalData[i], daysWithoutDeaths }
+
+      historicalAll.forEach(c => {
+        if (country.country.toUpperCase() === c.country.toUpperCase()) {
+          let deaths = Object.values(c.timeline.deaths)[Object.values(c.timeline.deaths).length-1]
+          let cases = Object.values(c.timeline.cases)[Object.values(c.timeline.cases).length-1]
+          let recovered = Object.values(c.timeline.recovered)[Object.values(c.timeline.recovered).length-1]
+
+          recoveredYesterday = recovered / (cases - deaths) * 100
+          recoveredDifference = Math.abs(country.recoveredPercent - recoveredYesterday)
+        }
+      })
+
+      let updatedItem = { ...country, historicalData: historicalData[i], daysWithoutDeaths, recoveredYesterday, recoveredDifference }
       arr.push(updatedItem)
     })
     return arr
@@ -81,8 +94,10 @@ const App = () => {
     let mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
     let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
     let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
+    let recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
 
-    let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive }
+
+    let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
     return calculated
   }
 
