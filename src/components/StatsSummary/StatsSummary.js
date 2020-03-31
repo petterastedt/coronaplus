@@ -10,8 +10,7 @@ const StatsSummary = props => (
           <strong className="country">
             {props.globalData.mostRecovered[0].country}
           </strong>
-            has the highest amount of recovered patients <span className="highlighted">({props.globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>
-          , followed by
+            has the highest amount of recovered patients <span className="highlighted">({props.globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>, followed by
           <strong>
             {props.globalData.mostRecovered[1].country}
           </strong>
@@ -26,18 +25,21 @@ const StatsSummary = props => (
             ({props.globalData.mostRecovered[2].recoveredPercent.toFixed()}%)
           </span>
         </li>
+
           { props.globalData.noDeaths &&
             <li className="statsSummary-item">
               {props.globalData.noDeaths.map((item, index) => <span className="highlighted" key={index}>{item.country}{index === 0 && props.globalData.noDeaths.length === 2 && " and "}{index === 0 && props.globalData.noDeaths.length > 2 && ", "} {index === 1 && props.globalData.noDeaths.length > 2 && " and "}</span>).slice(0, 3)}
               {props.globalData.noDeaths.length > 3 && "are some of the countries that"} have had <strong>multiple days</strong> without any reported deaths.
-          </li>
+            </li>
           }
+
         <li className="statsSummary-item">
           In <span className="highlighted">
             {props.globalData.criticalLessThanFive.toFixed()}%
           </span>
             of the countries with active cases, <span className="highlighted">less than 5% of them are critical.</span>*
         </li>
+
         { props.globalData.recoveredMostDifference.country &&
           <li className="statsSummary-item">
             <strong className="country">
@@ -46,9 +48,10 @@ const StatsSummary = props => (
             has the highest increase in recoveries from the past day with <span className="highlighted">+{props.globalData.recoveredMostDifference.recoveredDifference.toFixed()}%</span>*
           </li>
         }
+
       </ul>
       <div className="listNotice">
-        *Based on countries with at least 1000 reported cases
+        *Based on countries with at least {props.threshold} reported cases
       </div>
     </div>
   )

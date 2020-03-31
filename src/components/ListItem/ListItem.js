@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ListItem = (props) => (
+const ListItem = props => (
   <li className="listItem">
       <div className="listItem-titleWrapper">
         <div className="listItem-title">
@@ -20,8 +20,9 @@ const ListItem = (props) => (
           { props.itemData.todayDeaths === 0 && props.itemData.todayCases > 0 &&
             <div className="listItem-noDeaths highlighted highlightTag">No reported deaths today!</div>
           }
-          { props.itemData.daysWithoutDeaths > 1 && props.itemData.todayDeaths === 0 &&
-            <div className="listItem-noDeaths highlighted highlightTag">No reported deaths the past {props.itemData.daysWithoutDeaths} days!</div>
+          { props.itemData.daysWithoutDeaths > 1 && props.itemData.daysWithoutDeaths < 7 && props.itemData.todayDeaths === 0 ? <div className="listItem-noDeaths highlighted highlightTag">No reported deaths the past {props.itemData.daysWithoutDeaths} days!</div>
+            : props.itemData.daysWithoutDeaths > 6 && props.itemData.todayDeaths === 0 ? <div className="listItem-noDeaths highlighted highlightTag">No reported deaths in 7+ days!</div>
+            : ""
           }
         </div>
       </div>
@@ -38,7 +39,6 @@ const ListItem = (props) => (
               : props.itemData.recoveredPercent === props.itemData.recoveredYesterday ? <div className="highlighted equal" title="No change since yesterday">-</div>
               : <div className="highlighted minus" title="Percent of recovered decreased since yesterday">&#8595;</div>
             }
-
             <span>
               ({props.itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
             </span>

@@ -97,10 +97,10 @@
 
 .statsSummary-item span,
 .statsSummary-item strong {
-  padding-right: 4px; }
+  padding-right: 3px; }
 
 .statsSummary-item strong {
-  padding-left: 4px; }
+  padding-left: 3px; }
 
 .statsSummary-item strong.country {
   padding-left: 0; }
@@ -220,7 +220,11 @@
   box-shadow: 3px 3px 5px 0 #000;
   margin: 13px 0;
   opacity: 0;
-  padding: 20px; }
+  padding: 18px; }
+
+@media (min-width: 768px) {
+  .listItem {
+    padding: 20px; } }
 
 .listItem:last-child {
   margin-bottom: 0; }

@@ -88,7 +88,7 @@ const Filter = props => {
             }>Total cases</li>
           </ul>
         </div>
-        <span className="filterList-subtitle">Only showing countries with over 1000 cases</span>
+        <span className="filterList-subtitle">Only showing countries with over {props.threshold} cases</span>
       </div>
     </div>
   )

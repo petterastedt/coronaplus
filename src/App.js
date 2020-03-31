@@ -13,39 +13,42 @@ const App = () => {
   const [hideDeaths, setHideDeaths] = useState(true)
   const [activeFilter, setActiveFilter] = useState({ first: true })
 
-  const historyEndpoint = 'https://corona.lmao.ninja/v2/historical/'
+  const threshold = 1000 // Only show countries with more than X cases
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       let countries = await covid.getCountry({ sort: 'cases' })
       let countriesCalculted = getCountriesCalculations(countries)
 
-      let arrOfCountries = await getHistoricalValuesForCountries(countriesCalculted)
-      let historicalDataFiltered = filterLast7Days(arrOfCountries)
-      let mergedData = mergeData(countriesCalculted, historicalDataFiltered, arrOfCountries)
+      let countriesHistorical = await getHitorical(countriesCalculted)
+      let countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
+      let mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
 
       setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
 
-      let all = await covid.getAll()
-      let allCalculted = getAllCalculations(all, mergedData)
+      let global = await covid.getAll()
+      let globalCalculted = getAllCalculations(global, mergedData)
 
-      setGlobalData(allCalculted)
-    }
-    fetchData()
-  }, [])
+      setGlobalData(globalCalculted)
+    })()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getPercent = (value1, value2, value3) => value1 / (value2 - value3) * 100
 
   const sortCountriesData = sorted => setCountriesData(sorted)
   const hide = value => setHideDeaths(value)
   const setFilter = filter => setActiveFilter(filter)
 
-  const getHistoricalValuesForCountries = async (countries) => {
+  const getHitorical = async countries => {
     const promises = []
-    countries.map(country => promises.push(fetch(`${historyEndpoint}${country.country}`).then(r => r.json())))
+    const historyEndpointUrl = 'https://corona.lmao.ninja/v2/historical/'
+    countries.map(country => promises.push(fetch(`${historyEndpointUrl}${country.country}`).then(result => result.json())))
     return await Promise.all(promises)
   }
 
-  const filterLast7Days = countries => {
-    const arrOfCountries = []
+  const filterLastWeek = countries => {
+    const countriesArray = []
+    const amountOfDays = 7 // Number of days back in time to return
     countries.forEach(country => {
       const arr = []
       for (let key in country.timeline.deaths) {
@@ -53,18 +56,18 @@ const App = () => {
           arr.push(country.timeline.deaths[key])
         }
       }
-      arrOfCountries.push(arr.slice(arr.length - 7))
+      countriesArray.push(arr.slice(arr.length - amountOfDays))
     })
-    return arrOfCountries
+    return countriesArray
   }
 
   const mergeData = (countryData, historicalData, historicalAll) => {
     let arr = []
-
     countryData.forEach((country, i) => {
       let daysWithoutDeaths = 0
       let recoveredYesterday
       let recoveredDifference
+
       historicalData[i].reverse().forEach((item, index) => {
         if (item === historicalData[i][0] && index !== 0 && item !== historicalData[i][index+1]) {
           daysWithoutDeaths = index+1
@@ -77,7 +80,7 @@ const App = () => {
           let cases = Object.values(c.timeline.cases)[Object.values(c.timeline.cases).length-1]
           let recovered = Object.values(c.timeline.recovered)[Object.values(c.timeline.recovered).length-1]
 
-          recoveredYesterday = recovered / (cases - deaths) * 100
+          recoveredYesterday = getPercent(recovered, cases, deaths)
           recoveredDifference = Math.abs(country.recoveredPercent - recoveredYesterday)
         }
       })
@@ -90,12 +93,11 @@ const App = () => {
 
   const getAllCalculations = (data, countriesData) => {
     let updated = new Date(data.updated).toLocaleString('sv-SE')
-    let recoveredPercent = data.recovered / (data.cases - data.deaths) * 100
+    let recoveredPercent = getPercent(data.recovered, data.cases, data.deaths)
     let mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
     let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
     let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
     let recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
-
 
     let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
     return calculated
@@ -105,12 +107,11 @@ const App = () => {
     let updated = []
 
     data.forEach(item => {
-      const threshold = 999 // Only show countries with more than X cases
       if (item.cases > threshold) {
-        let recoveredPercent = item.recovered / (item.cases - item.deaths) * 100
-        let criticalPercent = item.critical / (item.cases - item.deaths) * 100
+        let recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
+        let criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
         let nonCriticalPercent = 100 - criticalPercent
-        let activePercent = item.active / (item.cases - item.deaths) * 100
+        let activePercent =  getPercent(item.active, item.cases, item.deaths)
 
         let result = { ...item, recoveredPercent, criticalPercent, nonCriticalPercent, activePercent }
         updated.push(result)
@@ -130,7 +131,8 @@ const App = () => {
 
       {globalData &&
         <StatsSummary
-          globalData={globalData} />
+          globalData={globalData}
+          threshold={threshold} />
       }
 
       {countriesData &&
@@ -140,7 +142,8 @@ const App = () => {
           hideDeaths={hideDeaths}
           setFilter={setFilter}
           sortCountriesData={sortCountriesData} 
-          activeFilter={activeFilter}/>
+          activeFilter={activeFilter}
+          threshold={threshold}/>
       }
 
       {countriesData &&
