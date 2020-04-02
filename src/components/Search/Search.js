@@ -10,7 +10,7 @@ const Search = props => {
     <div className="search">
       <input
         className="search-field"
-        placeholder="Search country"
+        placeholder="Search country.."
         onChange={(e) => handleOnChange(e)}
         autoComplete="off"
       />

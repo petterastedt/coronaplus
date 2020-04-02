@@ -235,10 +235,6 @@
   .search-field {
     margin: 2px 0 8px -5px; } }
 
-.search-field::placeholder {
-  color: inherit;
-  letter-spacing: 0.5px; }
-
 .listItem {
   animation: fadeInUp .3s forwards;
   animation-delay: 0.5s;

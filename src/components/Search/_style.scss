@@ -13,10 +13,5 @@
     @media (min-width: $breakpoint-tablet) {
       margin: 2px 0 8px -5px;
     }
-
-    &::placeholder {
-      color: inherit;
-      letter-spacing: 0.5px;
-    }
   }
 }
