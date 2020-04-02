@@ -7,6 +7,6 @@ Created using React and NovelCovid API
 
 ## TODO:
 
-- [ ] Refactor javascript
+- [x] ~~Refactor javascript~~ (Might need some more work)
 - [x] ~~Create summary/highlight component~~
 - [x] ~~Deploy~~
