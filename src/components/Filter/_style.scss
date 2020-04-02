@@ -32,6 +32,10 @@
   }
 }
 
+.filterListSearchWrapper {
+
+}
+
 .filterCategoriesWrapper {
   display: flex;
   flex-direction: column;
@@ -115,6 +119,10 @@
     font-size: $font-size-xs;
     font-style: italic;
     text-align: right;
-    padding: 5px $gutter-left 0 0;
+    padding: 5px $gutter-left 1px 0;
+
+    @media (min-width: $breakpoint-tablet) {
+      align-self: flex-end;
+    }
   }
 }

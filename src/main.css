@@ -214,7 +214,30 @@
   font-size: 10px;
   font-style: italic;
   text-align: right;
-  padding: 5px 12px 0 0; }
+  padding: 5px 12px 1px 0; }
+
+@media (min-width: 768px) {
+  .filterList-subtitle {
+    align-self: flex-end; } }
+
+.search-field {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  margin: 3px 0 5px;
+  outline: #00D39A;
+  padding: 5px 8px; }
+
+@media (min-width: 768px) {
+  .search-field {
+    margin: 2px 0 8px -5px; } }
+
+.search-field::placeholder {
+  color: inherit;
+  letter-spacing: 0.5px; }
 
 .listItem {
   animation: fadeInUp .3s forwards;

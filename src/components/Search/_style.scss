@@ -1,0 +1,22 @@
+.search {
+  &-field {
+    background-color: $color-box;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: $font-size-s;
+    margin: 3px 0 5px;
+    outline: $color-green;
+    padding: 5px 8px;
+
+    @media (min-width: $breakpoint-tablet) {
+      margin: 2px 0 8px -5px;
+    }
+
+    &::placeholder {
+      color: inherit;
+      letter-spacing: 0.5px;
+    }
+  }
+}

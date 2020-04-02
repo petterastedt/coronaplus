@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer'
 const App = () => {
   const [globalData, setGlobalData] = useState(null)
   const [countriesData, setCountriesData] = useState([])
+  const [filterInput, setFilterInput] = useState('')
   const [hideDeaths, setHideDeaths] = useState(true)
   const [activeFilter, setActiveFilter] = useState({ first: true })
 
@@ -23,7 +24,7 @@ const App = () => {
       let countriesCalculted = getCountriesCalculations(countries)
 
       // Historical country data
-      let countriesHistorical = await getHitorical(countriesCalculted)
+      let countriesHistorical = await getHistorical(countriesCalculted)
       let countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
       let mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
 
@@ -42,8 +43,12 @@ const App = () => {
   const sortCountriesData = sorted => setCountriesData(sorted)
   const hide = value => setHideDeaths(value)
   const setFilter = filter => setActiveFilter(filter)
+  const setSearchFilter = filter => {
+    const formattedFilter = filter.charAt(0).toUpperCase() + filter.slice(1)
+    setFilterInput(formattedFilter)
+  }
 
-  const getHitorical = async countries => {
+  const getHistorical = async countries => {
     const promises = await countries.map(async country => await covid.historical(null, country.country))
     return await Promise.all(promises)
   }
@@ -141,12 +146,15 @@ const App = () => {
           setFilter={setFilter}
           sortCountriesData={sortCountriesData} 
           activeFilter={activeFilter}
-          threshold={threshold}/>
+          threshold={threshold}
+          setSearchFilter={setSearchFilter} />
       }
 
       {countriesData &&
         <ul className="list resetList componentSpacing"> {
-          countriesData.map((item, i) => <ListItem itemData={item} activeFilter={activeFilter} hideDeaths={hideDeaths} key={i} />)
+          countriesData
+            .filter(c => c.country.includes(filterInput))
+            .map((item, i) => <ListItem itemData={item} activeFilter={activeFilter} hideDeaths={hideDeaths} key={i} />)
         } </ul>
       }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from './../Search/Search'
 
 const Filter = props => {
   const sort = (countries, action) => {
@@ -28,65 +29,70 @@ const Filter = props => {
         <span>Show deaths</span>
       </div>
       <div className="filterListWrapper">
-        <div className="filterCategoriesWrapper">
-          <span className="filterList-label">Sort by: </span>
-          <ul className="filterList resetList">
-            <li className={`filterList-item ${props.activeFilter.first ? "filterList-item--active" : ""}`}
-              onClick={() => {
-                let sorted = sort(props.countriesState, 'sortByRecovered')
-                let newFilter = {
-                  first: true,
-                  second: false,
-                  third: false,
-                  fourth: false
-                }
-                props.sortCountriesData(sorted)
-                props.setFilter(newFilter)
-              }
-            }>Recovered</li>
+        <div className="filterListSearchWrapper">
+          <Search
+            searchFilter={(filter) => props.setSearchFilter(filter)} />
 
-            <li className={`filterList-item ${props.activeFilter.second ? "filterList-item--active" : ""}`}
-              onClick={() => {
-                let sorted = sort(props.countriesState, 'sortByNonCritical')
-                let newFilter = {
-                  first: false,
-                  second: true,
-                  third: false,
-                  fourth: false
+          <div className="filterCategoriesWrapper">
+            <span className="filterList-label">Sort by: </span>
+            <ul className="filterList resetList">
+              <li className={`filterList-item ${props.activeFilter.first ? "filterList-item--active" : ""}`}
+                onClick={() => {
+                  let sorted = sort(props.countriesState, 'sortByRecovered')
+                  let newFilter = {
+                    first: true,
+                    second: false,
+                    third: false,
+                    fourth: false
+                  }
+                  props.sortCountriesData(sorted)
+                  props.setFilter(newFilter)
                 }
-                props.sortCountriesData(sorted)
-                props.setFilter(newFilter)
-              }
-            }>Mild cases</li>
+              }>Recovered</li>
 
-            <li className={`filterList-item ${props.activeFilter.third ? "filterList-item--active" : ""}`}
-              onClick={() => {
-                let sorted = sort(props.countriesState, 'sortByName')
-                let newFilter = {
-                  first: false,
-                  second: false,
-                  third: true,
-                  fourth: false
+              <li className={`filterList-item ${props.activeFilter.second ? "filterList-item--active" : ""}`}
+                onClick={() => {
+                  let sorted = sort(props.countriesState, 'sortByNonCritical')
+                  let newFilter = {
+                    first: false,
+                    second: true,
+                    third: false,
+                    fourth: false
+                  }
+                  props.sortCountriesData(sorted)
+                  props.setFilter(newFilter)
                 }
-                props.sortCountriesData(sorted)
-                props.setFilter(newFilter)
-              }
-            }>Country</li>
+              }>Mild cases</li>
 
-            <li className={`filterList-item ${props.activeFilter.fourth ? "filterList-item--active" : ""}`}
-              onClick={() => {
-                let sorted = sort(props.countriesState, 'sortByCases')
-                let newFilter = {
-                  first: false,
-                  second: false,
-                  third: false,
-                  fourth: true
+              <li className={`filterList-item ${props.activeFilter.third ? "filterList-item--active" : ""}`}
+                onClick={() => {
+                  let sorted = sort(props.countriesState, 'sortByName')
+                  let newFilter = {
+                    first: false,
+                    second: false,
+                    third: true,
+                    fourth: false
+                  }
+                  props.sortCountriesData(sorted)
+                  props.setFilter(newFilter)
                 }
-                props.sortCountriesData(sorted)
-                props.setFilter(newFilter)
-              }
-            }>Total cases</li>
-          </ul>
+              }>Country</li>
+
+              <li className={`filterList-item ${props.activeFilter.fourth ? "filterList-item--active" : ""}`}
+                onClick={() => {
+                  let sorted = sort(props.countriesState, 'sortByCases')
+                  let newFilter = {
+                    first: false,
+                    second: false,
+                    third: false,
+                    fourth: true
+                  }
+                  props.sortCountriesData(sorted)
+                  props.setFilter(newFilter)
+                }
+              }>Total cases</li>
+            </ul>
+          </div>
         </div>
         <span className="filterList-subtitle">Only showing countries with over {props.threshold} cases</span>
       </div>
