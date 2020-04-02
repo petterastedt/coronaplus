@@ -31,7 +31,11 @@
   animation: fadeIn 1s forwards; }
 
 .globalStats-total {
-  font-size: 28px; }
+  font-size: 25px; }
+
+@media (min-width: 350px) {
+  .globalStats-total {
+    font-size: 28px; } }
 
 @media (min-width: 768px) {
   .globalStats-total {
@@ -343,6 +347,9 @@
   flex-direction: column;
   font-weight: 500;
   margin: 0 auto; }
+
+.header-title {
+  font-size: 22px; }
 
 @media (min-width: 1024px) {
   .header-title {

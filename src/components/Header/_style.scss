@@ -14,8 +14,10 @@
   }
 
   &-title {
+    font-size: $font-size-l;
+
     @media (min-width: $breakpoint-tablet-horizontal) {
-      padding-left: 12px;
+      padding-left: $gutter-left;
    }
 
     span {

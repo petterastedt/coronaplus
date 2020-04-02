@@ -8,7 +8,7 @@
     letter-spacing: 0.7px;
 
     @media (min-width: $breakpoint-tablet-horizontal) {
-      padding-left: 12px;
+      padding-left: $gutter-left;
    }
   }
 
@@ -43,6 +43,6 @@
   }
 
   .listNotice {
-    padding-left: 12px;
+    padding-left: $gutter-left;
   }
 }

@@ -115,6 +115,6 @@
     font-size: $font-size-xs;
     font-style: italic;
     text-align: right;
-    padding: 5px 12px 0 0;
+    padding: 5px $gutter-left 0 0;
   }
 }

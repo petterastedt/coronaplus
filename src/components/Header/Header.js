@@ -4,7 +4,7 @@ const Header = () => (
   <div className="header">
     <div className="headerWrapper">
       <h1 className="header-title">CORONA<span>+</span></h1>
-      {/* <div className="header-subtitle">Focusing on the more positive statistics.</div> */}
+      {/* <div className="header-subtitle">POSITIVE STATISTICS</div> */}
     </div>
   </div>
 )

@@ -22,7 +22,11 @@
   }
 
   &-total {
-    font-size: $font-size-xl;
+    font-size: 25px;
+
+    @media (min-width: $breakpoint-mobile-narrow) {
+      font-size: $font-size-xl;
+    }
 
     @media (min-width: $breakpoint-tablet) {
       font-size: 43px;

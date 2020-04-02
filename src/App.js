@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import covid from 'novelcovid'
+import { NovelCovid } from 'novelcovid'
 import Header from './components/Header/Header'
 import Filter from './components/Filter/Filter'
 import ListItem from './components/ListItem/ListItem'
@@ -13,22 +13,26 @@ const App = () => {
   const [hideDeaths, setHideDeaths] = useState(true)
   const [activeFilter, setActiveFilter] = useState({ first: true })
 
+  const covid = new NovelCovid()
   const threshold = 1000 // Only show countries with more than X cases
 
   useEffect(() => {
     (async () => {
-      let countries = await covid.getCountry({ sort: 'cases' })
+      // Current country data
+      let countries = await covid.countries()
       let countriesCalculted = getCountriesCalculations(countries)
 
+      // Historical country data
       let countriesHistorical = await getHitorical(countriesCalculted)
       let countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
       let mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
 
-      setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
-
-      let global = await covid.getAll()
+      // Global data
+      let global = await covid.all()
       let globalCalculted = getAllCalculations(global, mergedData)
 
+      // Set state
+      setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
       setGlobalData(globalCalculted)
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -40,9 +44,7 @@ const App = () => {
   const setFilter = filter => setActiveFilter(filter)
 
   const getHitorical = async countries => {
-    const promises = []
-    const historyEndpointUrl = 'https://corona.lmao.ninja/v2/historical/'
-    countries.map(country => promises.push(fetch(`${historyEndpointUrl}${country.country}`).then(result => result.json())))
+    const promises = await countries.map(async country => await covid.historical(null, country.country))
     return await Promise.all(promises)
   }
 
@@ -85,8 +87,7 @@ const App = () => {
         }
       })
 
-      let updatedItem = { ...country, historicalData: historicalData[i], daysWithoutDeaths, recoveredYesterday, recoveredDifference }
-      arr.push(updatedItem)
+      arr.push({ ...country, historicalData: historicalData[i], daysWithoutDeaths, recoveredYesterday, recoveredDifference })
     })
     return arr
   }
@@ -99,13 +100,11 @@ const App = () => {
     let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
     let recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
 
-    let calculated = { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
-    return calculated
+    return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
   }
 
   const getCountriesCalculations = data => {
     let updated = []
-
     data.forEach(item => {
       if (item.cases > threshold) {
         let recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
@@ -113,8 +112,7 @@ const App = () => {
         let nonCriticalPercent = 100 - criticalPercent
         let activePercent =  getPercent(item.active, item.cases, item.deaths)
 
-        let result = { ...item, recoveredPercent, criticalPercent, nonCriticalPercent, activePercent }
-        updated.push(result)
+        updated.push({ ...item, recoveredPercent, criticalPercent, nonCriticalPercent, activePercent })
       }
     })
     return updated
