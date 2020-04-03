@@ -30,9 +30,6 @@ const Filter = props => {
       </div>
       <div className="filterListWrapper">
         <div className="filterListSearchWrapper">
-          <Search
-            searchFilter={(filter) => props.setSearchFilter(filter)} />
-
           <div className="filterCategoriesWrapper">
             <span className="filterList-label">Sort by: </span>
             <ul className="filterList resetList">
@@ -93,6 +90,8 @@ const Filter = props => {
               }>Total cases</li>
             </ul>
           </div>
+          <Search
+            searchFilter={(filter) => props.setSearchFilter(filter)} />
         </div>
         <span className="filterList-subtitle">Only showing countries with over {props.threshold} cases</span>
       </div>

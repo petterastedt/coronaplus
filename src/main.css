@@ -227,13 +227,19 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  margin: 3px 0 5px;
+  margin: 8px 0 3px;
   outline: #00D39A;
-  padding: 5px 8px; }
+  padding: 5px 8px;
+  width: calc(100% - 17px); }
+
+@media (min-width: 480px) {
+  .search-field {
+    width: 295px; } }
 
 @media (min-width: 768px) {
   .search-field {
-    margin: 2px 0 8px -5px; } }
+    margin: 12px 0 -2px -5px;
+    width: 98%; } }
 
 .listItem {
   animation: fadeInUp .3s forwards;

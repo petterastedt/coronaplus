@@ -6,12 +6,18 @@
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: $font-size-s;
-    margin: 3px 0 5px;
+    margin: 8px 0 3px;
     outline: $color-green;
     padding: 5px 8px;
+    width: calc(100% - 17px);
+
+    @media (min-width: $breakpoint-mobile-horizontal) {
+      width: 295px;
+    }
 
     @media (min-width: $breakpoint-tablet) {
-      margin: 2px 0 8px -5px;
+      margin: 12px 0 -2px -5px;
+      width: 98%;
     }
   }
 }
