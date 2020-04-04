@@ -20,17 +20,17 @@ const App = () => {
   useEffect(() => {
     (async () => {
       // Current country data
-      let countries = await covid.countries()
-      let countriesCalculted = getCountriesCalculations(countries)
+      const countries = await covid.countries()
+      const countriesCalculted = getCountriesCalculations(countries)
 
       // Historical country data
-      let countriesHistorical = await getHistorical(countriesCalculted)
-      let countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
-      let mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
+      const countriesHistorical = await getHistorical(countriesCalculted)
+      const countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
+      const mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
 
       // Global data
-      let global = await covid.all()
-      let globalCalculted = getAllCalculations(global, mergedData)
+      const global = await covid.all()
+      const globalCalculted = getAllCalculations(global, mergedData)
 
       // Set state
       setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
@@ -41,8 +41,11 @@ const App = () => {
   const getPercent = (value1, value2, value3) => value1 / (value2 - value3) * 100
 
   const sortCountriesData = sorted => setCountriesData(sorted)
+
   const hide = value => setHideDeaths(value)
+
   const setFilter = filter => setActiveFilter(filter)
+
   const setSearchFilter = filter => {
     const formattedFilter = filter.charAt(0).toUpperCase() + filter.slice(1)
     setFilterInput(formattedFilter)
@@ -50,8 +53,6 @@ const App = () => {
 
   const getHistorical = async countries => {
     const countriesFiltered = countries.filter(country => country.country !== "World")
-    console.log(countriesFiltered)
-
     const promises = await countriesFiltered.map(async country => await covid.historical(null, country.country))
     return await Promise.all(promises)
   }
@@ -72,13 +73,11 @@ const App = () => {
   }
 
   const mergeData = (countryData, historicalData, historicalAll) => {
-    console.log("test", countryData)
-    let arr = []
+    const arr = []
     countryData.forEach((country, i) => {
       let daysWithoutDeaths = 0
       let recoveredYesterday
       let recoveredDifference
-      console.log(historicalData[0], i)
 
       historicalData[i].reverse().forEach((item, index) => {
         if (item === historicalData[i][0] && index !== 0 && item !== historicalData[i][index+1]) {
@@ -88,9 +87,9 @@ const App = () => {
 
       historicalAll.forEach(c => {
         if (country.country.toUpperCase() === c.country.toUpperCase()) {
-          let deaths = Object.values(c.timeline.deaths)[Object.values(c.timeline.deaths).length-1]
-          let cases = Object.values(c.timeline.cases)[Object.values(c.timeline.cases).length-1]
-          let recovered = Object.values(c.timeline.recovered)[Object.values(c.timeline.recovered).length-1]
+          const deaths = Object.values(c.timeline.deaths)[Object.values(c.timeline.deaths).length-1]
+          const cases = Object.values(c.timeline.cases)[Object.values(c.timeline.cases).length-1]
+          const recovered = Object.values(c.timeline.recovered)[Object.values(c.timeline.recovered).length-1]
 
           recoveredYesterday = getPercent(recovered, cases, deaths)
           recoveredDifference = Math.abs(country.recoveredPercent - recoveredYesterday)
@@ -103,12 +102,12 @@ const App = () => {
   }
 
   const getAllCalculations = (data, countriesData) => {
-    let updated = new Date(data.updated).toLocaleString('sv-SE')
-    let recoveredPercent = getPercent(data.recovered, data.cases, data.deaths)
-    let mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
-    let noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
-    let criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
-    let recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
+    const updated = new Date(data.updated).toLocaleString('sv-SE')
+    const recoveredPercent = getPercent(data.recovered, data.cases, data.deaths)
+    const mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
+    const noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
+    const criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
+    const recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
 
     return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
   }
@@ -116,13 +115,13 @@ const App = () => {
   const getCountriesCalculations = data => {
     const dataFiltered = data.filter(country => country.country !== "World")
 
-    let updated = []
+    const updated = []
     dataFiltered.forEach(item => {
       if (item.cases > threshold) {
-        let recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
-        let criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
-        let nonCriticalPercent = 100 - criticalPercent
-        let activePercent =  getPercent(item.active, item.cases, item.deaths)
+        const recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
+        const criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
+        const nonCriticalPercent = 100 - criticalPercent
+        const activePercent =  getPercent(item.active, item.cases, item.deaths)
 
         updated.push({ ...item, recoveredPercent, criticalPercent, nonCriticalPercent, activePercent })
       }
