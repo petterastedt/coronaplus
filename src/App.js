@@ -49,7 +49,10 @@ const App = () => {
   }
 
   const getHistorical = async countries => {
-    const promises = await countries.map(async country => await covid.historical(null, country.country))
+    const countriesFiltered = countries.filter(country => country.country !== "World")
+    console.log(countriesFiltered)
+
+    const promises = await countriesFiltered.map(async country => await covid.historical(null, country.country))
     return await Promise.all(promises)
   }
 
@@ -69,11 +72,13 @@ const App = () => {
   }
 
   const mergeData = (countryData, historicalData, historicalAll) => {
+    console.log("test", countryData)
     let arr = []
     countryData.forEach((country, i) => {
       let daysWithoutDeaths = 0
       let recoveredYesterday
       let recoveredDifference
+      console.log(historicalData[0], i)
 
       historicalData[i].reverse().forEach((item, index) => {
         if (item === historicalData[i][0] && index !== 0 && item !== historicalData[i][index+1]) {
@@ -109,8 +114,10 @@ const App = () => {
   }
 
   const getCountriesCalculations = data => {
+    const dataFiltered = data.filter(country => country.country !== "World")
+
     let updated = []
-    data.forEach(item => {
+    dataFiltered.forEach(item => {
       if (item.cases > threshold) {
         let recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
         let criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
