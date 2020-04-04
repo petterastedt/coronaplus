@@ -153,10 +153,10 @@ const App = () => {
       {countriesData &&
         <Filter
           countriesState={countriesData}
-          hide={hide}
+          hide={setHideDeaths}
           hideDeaths={hideDeaths}
-          setFilter={setFilter}
-          sortCountriesData={sortCountriesData} 
+          setFilter={setActiveFilter}
+          sortCountriesData={setCountriesData}
           activeFilter={activeFilter}
           threshold={threshold}
           setSearchFilter={setSearchFilter} />
