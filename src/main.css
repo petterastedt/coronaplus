@@ -417,6 +417,9 @@ h1 {
 h2, .h2 {
   font-size: 18px; }
 
+h3, .h3 {
+  font-size: 18px; }
+
 a {
   color: #00D39A;
   text-decoration: none; }
@@ -460,6 +463,10 @@ a:hover {
 @media (min-width: 1024px) {
   .highlightTag:first-child {
     margin-top: 0; } }
+
+.error {
+  color: #FFC947;
+  font-weight: 800; }
 
 .container {
   margin: 0 auto;

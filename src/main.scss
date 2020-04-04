@@ -34,6 +34,10 @@ h2, .h2 {
   font-size: 18px;
 }
 
+h3, .h3 {
+  font-size: 18px;
+}
+
 a {
   color: $color-green;
   text-decoration: none;
@@ -86,6 +90,11 @@ a {
       margin-top: 0;
     }
  }
+}
+
+.error {
+  color: $color-orange;
+  font-weight: 800;
 }
 
 .container {

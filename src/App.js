@@ -12,6 +12,7 @@ const App = () => {
   const [countriesData, setCountriesData] = useState([])
   const [filterInput, setFilterInput] = useState('')
   const [hideDeaths, setHideDeaths] = useState(true)
+  const [error, setError] = useState(null)
   const [activeFilter, setActiveFilter] = useState({ first: true })
 
   const covid = new NovelCovid()
@@ -19,22 +20,27 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      // Current country data
-      const countries = await covid.countries()
-      const countriesCalculted = getCountriesCalculations(countries)
+      try {
+        // Current country data
+        const countries = await covid.countries()
+        const countriesCalculted = getCountriesCalculations(countries)
 
-      // Historical country data
-      const countriesHistorical = await getHistorical(countriesCalculted)
-      const countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
-      const mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
+        // Historical country data
+        const countriesHistorical = await getHistorical(countriesCalculted)
+        const countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
+        const mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
 
-      // Global data
-      const global = await covid.all()
-      const globalCalculted = getAllCalculations(global, mergedData)
+        // Global data
+        const global = await covid.all()
+        const globalCalculted = getAllCalculations(global, mergedData)
 
-      // Set state
-      setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
-      setGlobalData(globalCalculted)
+        // Set state
+        setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
+        setGlobalData(globalCalculted)
+      } catch(e) {
+        setError("Something went wrong when contacting the API, please try again later.")
+        console.log(e)
+      }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -52,8 +58,7 @@ const App = () => {
   }
 
   const getHistorical = async countries => {
-    const countriesFiltered = countries.filter(country => country.country !== "World")
-    const promises = await countriesFiltered.map(async country => await covid.historical(null, country.country))
+    const promises = await countries.map(async country => await covid.historical(null, country.country))
     return await Promise.all(promises)
   }
 
@@ -136,7 +141,8 @@ const App = () => {
       <GlobalStats
         countriesData={countriesData}
         hideDeaths={hideDeaths}
-        globalData={globalData} />
+        globalData={globalData}
+        error={error} />
 
       {globalData &&
         <StatsSummary
