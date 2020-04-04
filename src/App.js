@@ -113,8 +113,6 @@ const App = () => {
   }
 
   const getCountriesCalculations = data => {
-    
-
     const updated = []
     data.forEach(item => {
       if (item.cases > threshold) {
