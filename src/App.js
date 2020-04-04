@@ -32,6 +32,7 @@ const App = () => {
 
         // Global data
         const global = await covid.all()
+        console.log(global)
         const globalCalculted = getAllCalculations(global, mergedData)
 
         // Set state
@@ -45,12 +46,6 @@ const App = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const getPercent = (value1, value2, value3) => value1 / (value2 - value3) * 100
-
-  const sortCountriesData = sorted => setCountriesData(sorted)
-
-  const hide = value => setHideDeaths(value)
-
-  const setFilter = filter => setActiveFilter(filter)
 
   const setSearchFilter = filter => {
     const formattedFilter = filter.charAt(0).toUpperCase() + filter.slice(1)
@@ -118,10 +113,10 @@ const App = () => {
   }
 
   const getCountriesCalculations = data => {
-    const dataFiltered = data.filter(country => country.country !== "World")
+    
 
     const updated = []
-    dataFiltered.forEach(item => {
+    data.forEach(item => {
       if (item.cases > threshold) {
         const recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
         const criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
