@@ -32,7 +32,6 @@ const App = () => {
 
         // Global data
         const global = await covid.all()
-        console.log(global)
         const globalCalculted = getAllCalculations(global, mergedData)
 
         // Set state
