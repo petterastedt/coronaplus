@@ -251,10 +251,6 @@
   opacity: 0;
   padding: 18px; }
 
-@media (min-width: 768px) {
-  .listItem {
-    padding: 20px; } }
-
 .listItem:last-child {
   margin-bottom: 0; }
 

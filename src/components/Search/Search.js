@@ -9,6 +9,7 @@ const Search = props => {
   return (
     <div className="search">
       <input
+        aria-label="Search country"
         className="search-field"
         placeholder="Search country.."
         onChange={(e) => handleOnChange(e)}

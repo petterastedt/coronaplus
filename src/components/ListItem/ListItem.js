@@ -9,7 +9,8 @@ const ListItem = props => (
               alt={`Flag of ${props.itemData.country}`}
               title={`Flag of ${props.itemData.country}`}
               key={props.i}
-              className="listItem-flag"/>
+              className="listItem-flag"
+              loading="lazy"/>
           </span>
           <h2 className="listItem-countryname">{props.itemData.country}</h2>
         </div>

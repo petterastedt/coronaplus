@@ -8,10 +8,6 @@
   opacity: 0;
   padding: 18px;
 
-  @media (min-width: $breakpoint-tablet) {
-    padding: 20px;
-  }
-
   &:last-child {
     margin-bottom: 0;
   }

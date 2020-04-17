@@ -114,7 +114,7 @@ const App = () => {
   const getCountriesCalculations = data => {
     const updated = []
     data.forEach(item => {
-      if (item.cases > threshold) {
+      if (item.cases > threshold && !item.country.includes("Hong")) { // Temp fix - (Hong Kong doesn't return historical data)
         const recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
         const criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
         const nonCriticalPercent = 100 - criticalPercent

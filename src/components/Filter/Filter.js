@@ -21,6 +21,7 @@ const Filter = props => {
     <div className="filter">
       <div className="filter-checkbox">
         <input type="checkbox"
+          aria-label="Toggle death statistics"
           defaultChecked={false} 
           onChange={() => {
             props.hide(!props.hideDeaths)
