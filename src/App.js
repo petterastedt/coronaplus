@@ -34,7 +34,7 @@ const App = () => {
         const global = await covid.all()
         const globalYesterday = await covid.historical(true)
         const globalCalculted = getAllCalculations(global, mergedData, globalYesterday)
-        console.log(globalCalculted)
+
         // Set state
         setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
         setGlobalData(globalCalculted)
@@ -131,15 +131,13 @@ const App = () => {
     const deathsYesterday = Object.values(dataYesterday.deaths)[Object.values(dataYesterday.deaths).length-1]
     const recoveredPercentYesterday = getPercent(recoveredYesterday, casesYesterday, deathsYesterday)
 
-    console.log(recoveredPercentYesterday)
-
     return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference, totallyRecovered, recoveredPercentYesterday }
   }
 
   const getCountriesCalculations = data => {
     const updated = []
     data.forEach(item => {
-      if (item.cases > threshold && !item.country.includes("Hong")) { // Temp fix - (Hong Kong doesn't return historical data)
+      if (item.cases > threshold) {
         const recoveredPercent = getPercent(item.recovered, item.cases, item.deaths)
         const criticalPercent =  getPercent(item.critical, item.cases, item.deaths)
         const nonCriticalPercent = 100 - criticalPercent
