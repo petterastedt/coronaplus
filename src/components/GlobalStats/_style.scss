@@ -53,6 +53,20 @@
     }
   }
 
+  &-indicator {
+    animation: fadeIn 0.3s forwards;
+    animation-delay: 3.5s;
+    font-size: $font-size-l;
+    margin-top: -2px;
+    opacity: 0;
+    padding-left: 4px;
+
+    @media (min-width: $breakpoint-tablet) {
+      font-size: $font-size-xl;
+      margin-top: -5px;
+    }
+  }
+
   &-deaths {
     color: $color-red;
     font-weight: 800;
@@ -70,5 +84,15 @@
     strong {
       padding-right: 5px;
     }
+  }
+
+  &-warning {
+    animation: fadeIn 0.3s forwards;
+    animation-delay: 4s;
+    color: $color-orange;
+    font-size: 10px;
+    font-weight: 800;
+    margin-top: 8px;
+    opacity: 0;
   }
 }

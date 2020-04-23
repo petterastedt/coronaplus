@@ -7303,10 +7303,10 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
-novelcovid@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/novelcovid/-/novelcovid-1.2.4.tgz#60040bfe7e508aff15bba7b2a294ac22eb97f0df"
-  integrity sha512-c+U4RpqHF2c2Lrmmv770wmdjthL1/7F6ntFGnvCfRnmYlGlO0jHJ94e/tJq6XyQJL6vvU7Voht0+QzOEkM3+wQ==
+novelcovid@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/novelcovid/-/novelcovid-1.2.7.tgz#dc8e00f1697285562fd0cb5eb52ad80bbbaa194a"
+  integrity sha512-Kfu4pzlBNpLSU+W4tC5oO5fEYB8k//TAK0FZUL/d/YvaEziMgfTlJkgipV5Nr60CwBZbixzyJp/H+gvx1BAyZg==
   dependencies:
     node-fetch "*"
 

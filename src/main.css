@@ -57,6 +57,19 @@
 .globalStats-recovered strong {
   padding-right: 8px; }
 
+.globalStats-indicator {
+  animation: fadeIn 0.3s forwards;
+  animation-delay: 3.5s;
+  font-size: 22px;
+  margin-top: -2px;
+  opacity: 0;
+  padding-left: 4px; }
+
+@media (min-width: 768px) {
+  .globalStats-indicator {
+    font-size: 28px;
+    margin-top: -5px; } }
+
 .globalStats-deaths {
   color: #FF6347;
   font-weight: 800;
@@ -71,6 +84,15 @@
 
 .globalStats-updated strong {
   padding-right: 5px; }
+
+.globalStats-warning {
+  animation: fadeIn 0.3s forwards;
+  animation-delay: 4s;
+  color: #FFC947;
+  font-size: 10px;
+  font-weight: 800;
+  margin-top: 8px;
+  opacity: 0; }
 
 .statsSummary {
   animation: fadeInUp .3s forwards;
@@ -292,6 +314,9 @@
 .listItem-statsItem .percent {
   margin-right: 5px; }
 
+.listItem-flag {
+  max-width: 35px; }
+
 .listItem-stats, .listItem-titleWrapper {
   display: flex;
   flex-direction: column;
@@ -350,10 +375,6 @@
 
 .listItem--filterIsActive {
   font-weight: 800; }
-
-.listItem img {
-  max-height: 25px;
-  max-width: 30px; }
 
 .header {
   margin: 20px 0 50px 0; }

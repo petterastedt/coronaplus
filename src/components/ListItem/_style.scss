@@ -58,6 +58,10 @@
     }
   }
 
+  &-flag {
+    max-width: 35px;
+  }
+
   &-stats,
   &-titleWrapper {
     display: flex;
@@ -129,10 +133,5 @@
 
   &--filterIsActive {
     font-weight: 800;
-  }
-
-  img {
-    max-height: 25px;
-    max-width: 30px;
   }
 }

@@ -32,8 +32,9 @@ const App = () => {
 
         // Global data
         const global = await covid.all()
-        const globalCalculted = getAllCalculations(global, mergedData)
-
+        const globalYesterday = await covid.historical(true)
+        const globalCalculted = getAllCalculations(global, mergedData, globalYesterday)
+        console.log(globalCalculted)
         // Set state
         setCountriesData(mergedData.slice().sort((a, b) => (a.recoveredPercent < b.recoveredPercent) ? 1 : -1))
         setGlobalData(globalCalculted)
@@ -52,8 +53,24 @@ const App = () => {
   }
 
   const getHistorical = async countries => {
-    const promises = await countries.map(async country => await covid.historical(null, country.country))
-    return await Promise.all(promises)
+    const all = await covid.historical()
+    let arr = []
+    countries.forEach(item => all.forEach(obj => item.country === obj.country && arr.push(obj)))
+
+    const countriesData = arr.filter(item => !item.province)
+    const countriesGetData = arr.filter(item => item.province).reduce((acc, current) => {
+      const x = acc.find(item => item.country === current.country)
+      if (!x) {
+        return acc.concat([current])
+      } else {
+        return acc
+      }
+    }, [])
+
+    const promises = await countriesGetData.map(async country => await covid.historical(null, country.country))
+    const resolvedPromises = await Promise.all(promises)
+
+    return resolvedPromises.concat(countriesData)
   }
 
   const filterLastWeek = countries => {
@@ -100,15 +117,23 @@ const App = () => {
     return arr
   }
 
-  const getAllCalculations = (data, countriesData) => {
+  const getAllCalculations = (data, countriesData, dataYesterday) => {
     const updated = new Date(data.updated).toLocaleString('sv-SE')
     const recoveredPercent = getPercent(data.recovered, data.cases, data.deaths)
     const mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
     const noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
     const criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
     const recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
+    const totallyRecovered = countriesData.filter(item => item.recoveredPercent === 100)
 
-    return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference }
+    const recoveredYesterday = Object.values(dataYesterday.recovered)[Object.values(dataYesterday.recovered).length-1]
+    const casesYesterday = Object.values(dataYesterday.cases)[Object.values(dataYesterday.cases).length-1]
+    const deathsYesterday = Object.values(dataYesterday.deaths)[Object.values(dataYesterday.deaths).length-1]
+    const recoveredPercentYesterday = getPercent(recoveredYesterday, casesYesterday, deathsYesterday)
+
+    console.log(recoveredPercentYesterday)
+
+    return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference, totallyRecovered, recoveredPercentYesterday }
   }
 
   const getCountriesCalculations = data => {
@@ -131,7 +156,6 @@ const App = () => {
       <Header />
 
       <GlobalStats
-        countriesData={countriesData}
         hideDeaths={hideDeaths}
         globalData={globalData}
         error={error} />

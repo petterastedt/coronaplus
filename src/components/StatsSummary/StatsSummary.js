@@ -1,59 +1,68 @@
 import React from 'react'
 
-const StatsSummary = props => (
+const StatsSummary = ({globalData, threshold}) => (
     <div className="statsSummary componentSpacing">
       <div className="statsSummary-title">
         Summary
       </div>
       <ul className="statsSummary-list">
+        { globalData.totallyRecovered.length !== 0 &&
+          <li className="statsSummary-item">
+            { globalData.totallyRecovered
+              .map((item, index) => <span className="highlighted" key={index}>{item.country}{index === 0 && globalData.totallyRecovered.length === 2 && " and "}{index < globalData.totallyRecovered.length-2 && ", "}{index === globalData.totallyRecovered.length-2 && " and "}</span>)
+            }
+            have reported <strong>full recovery</strong> from the Corona virus! <span role="img" aria-label="elebration emoji">🎉</span>
+          </li>
+        }
+
+        { Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday) > 0.5 &&
+          <li className="statsSummary-item">
+            Worldwide recovery is up <span className="highlighted">+{Math.round(Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday)).toFixed(2)}%</span> since yesterday!
+          </li>
+        }
+
         <li className="statsSummary-item">
-          <strong className="country">
-            {props.globalData.mostRecovered[0].country}
+          <strong className="country highlighted">
+            {globalData.mostRecovered[0].country}
           </strong>
-            has the highest amount of recovered patients <span className="highlighted">({props.globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>, followed by
-          <strong>
-            {props.globalData.mostRecovered[1].country}
-          </strong>
+            has the highest amount of recovered patients <span className="highlighted">({globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>
+            , followed by <strong className="country highlighted">{globalData.mostRecovered[1].country}</strong>
           <span className="highlighted">
-            ({props.globalData.mostRecovered[1].recoveredPercent.toFixed()}%)
-          </span>
-            and
-          <strong>
-            {props.globalData.mostRecovered[2].country}
-          </strong>
+            ({globalData.mostRecovered[1].recoveredPercent.toFixed()}%)
+          </span> and <strong className="country highlighted"> {globalData.mostRecovered[2].country}</strong>
           <span className="highlighted">
-            ({props.globalData.mostRecovered[2].recoveredPercent.toFixed()}%)
+            ({globalData.mostRecovered[2].recoveredPercent.toFixed()}%)
           </span>
         </li>
 
-          { props.globalData.noDeaths.length > 0 &&
+          { globalData.noDeaths.length > 0 &&
             <li className="statsSummary-item">
-              {props.globalData.noDeaths
-                .map((item, index) => <span className="highlighted" key={index}>{item.country}{index === 0 && props.globalData.noDeaths.length === 2 && " and "}{index === 0 && props.globalData.noDeaths.length > 2 && ", "} {index === 1 && props.globalData.noDeaths.length > 2 && " and "}</span>)
+              {globalData.noDeaths
+                .map((item, index) => <span className="highlighted" key={index}>{item.country}{index === 0 && globalData.noDeaths.length === 2 && " and "}{index === 0 && globalData.noDeaths.length > 2 && ", "} {index === 1 && globalData.noDeaths.length > 2 && " and "}</span>)
                 .slice(0, 3)}
-              {props.globalData.noDeaths.length > 3 && "are some of the countries that"} have had <strong>multiple days</strong> without any reported deaths.
+              {globalData.noDeaths.length > 3 && "are some of the countries that"} have had <strong>multiple days</strong> without any reported deaths.
             </li>
           }
 
         <li className="statsSummary-item">
           In <span className="highlighted">
-            {props.globalData.criticalLessThanFive.toFixed()}%
+            {globalData.criticalLessThanFive.toFixed()}%
           </span>
             of the countries with active cases, <span className="highlighted">less than 5% of them are critical.</span>*
         </li>
 
-        { props.globalData.recoveredMostDifference.country &&
+        { globalData.recoveredMostDifference.country &&
           <li className="statsSummary-item">
-            <strong className="country">
-              {props.globalData.recoveredMostDifference.country}
+            <strong className="country highlighted">
+              {globalData.recoveredMostDifference.country}
             </strong>
-            has the highest increase in recoveries from the past day with <span className="highlighted">+{props.globalData.recoveredMostDifference.recoveredDifference.toFixed()}%</span>*
+            has the highest increase in recoveries from the past day with <span className="highlighted">+{globalData.recoveredMostDifference.recoveredDifference.toFixed()}%</span>*
           </li>
         }
 
       </ul>
       <div className="listNotice">
-        *Based on countries with at least {props.threshold} reported cases
+        *Based on countries with at least {threshold} reported cases
       </div>
     </div>
   )
