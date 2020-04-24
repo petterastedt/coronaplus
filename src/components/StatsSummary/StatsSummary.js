@@ -17,7 +17,7 @@ const StatsSummary = ({globalData, threshold}) => (
 
         { Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday) > 0.5 &&
           <li className="statsSummary-item">
-            Worldwide recovery is up <span className="highlighted">+{Math.round(Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday)).toFixed(2)}%</span> since yesterday!
+            Worldwide recovery is up <span className="highlighted">+{Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday).toFixed(2)}%</span> since yesterday!
           </li>
         }
 
