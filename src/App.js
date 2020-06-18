@@ -122,7 +122,7 @@ const App = () => {
     const recoveredPercent = getPercent(data.recovered, data.cases, data.deaths)
     const mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
     const noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
-    const criticalLessThanFive = countriesData.filter(item => item.nonCriticalPercent > 95).length / countriesData.length * 100
+    const criticalLessThanOne = countriesData.filter(item => item.nonCriticalPercent > 99).length / countriesData.length * 100
     const recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
     const totallyRecovered = countriesData.filter(item => item.recoveredPercent === 100)
 
@@ -131,7 +131,7 @@ const App = () => {
     const deathsYesterday = Object.values(dataYesterday.deaths)[Object.values(dataYesterday.deaths).length-1]
     const recoveredPercentYesterday = getPercent(recoveredYesterday, casesYesterday, deathsYesterday)
 
-    return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanFive, recoveredMostDifference, totallyRecovered, recoveredPercentYesterday }
+    return { ...data, recoveredPercent, updated, mostRecovered, noDeaths, criticalLessThanOne, recoveredMostDifference, totallyRecovered, recoveredPercentYesterday }
   }
 
   const getCountriesCalculations = data => {

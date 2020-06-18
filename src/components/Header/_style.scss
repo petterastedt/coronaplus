@@ -11,14 +11,14 @@
     flex-direction: column;
     font-weight: 500;
     margin: 0 auto;
-  }
-
-  &-title {
-    font-size: $font-size-l;
 
     @media (min-width: $breakpoint-tablet-horizontal) {
       padding-left: $gutter-left;
    }
+  }
+
+  &-title {
+    font-size: $font-size-l;
 
     span {
       color: $color-green;

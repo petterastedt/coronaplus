@@ -15,23 +15,23 @@ const StatsSummary = ({globalData, threshold}) => (
           </li>
         }
 
-        { Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday) > 0.5 &&
+        {/* { Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday) > 0.5 &&
           <li className="statsSummary-item">
             Worldwide recovery is up <span className="highlighted">+{Math.abs(globalData.recoveredPercent - globalData.recoveredPercentYesterday).toFixed(2)}%</span> since yesterday!
           </li>
-        }
+        } */}
 
         <li className="statsSummary-item">
           <strong className="country highlighted">
             {globalData.mostRecovered[0].country}
           </strong>
-            has the highest amount of recovered patients <span className="highlighted">({globalData.mostRecovered[0].recoveredPercent.toFixed()}%)</span>
+            has the highest amount of recovered patients <span className="highlighted">({globalData.mostRecovered[0].recoveredPercent.toFixed(2)}%)</span>
             , followed by <strong className="country highlighted">{globalData.mostRecovered[1].country}</strong>
           <span className="highlighted">
-            ({globalData.mostRecovered[1].recoveredPercent.toFixed()}%)
+            ({globalData.mostRecovered[1].recoveredPercent.toFixed(2)}%)
           </span> and <strong className="country highlighted"> {globalData.mostRecovered[2].country}</strong>
           <span className="highlighted">
-            ({globalData.mostRecovered[2].recoveredPercent.toFixed()}%)
+            ({globalData.mostRecovered[2].recoveredPercent.toFixed(2)}%)
           </span>
         </li>
 
@@ -46,9 +46,9 @@ const StatsSummary = ({globalData, threshold}) => (
 
         <li className="statsSummary-item">
           In <span className="highlighted">
-            {globalData.criticalLessThanFive.toFixed()}%
+            {globalData.criticalLessThanOne.toFixed()}%
           </span>
-            of the countries with active cases, <span className="highlighted">less than 5% of them are critical.</span>*
+            of the countries with active cases, <span className="highlighted">less than 1% of them are critical.</span>*
         </li>
 
         { globalData.recoveredMostDifference.country &&
