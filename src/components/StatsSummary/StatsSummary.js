@@ -52,12 +52,14 @@ const StatsSummary = ({globalData, threshold}) => (
         </li>
 
         { globalData.recoveredMostDifference.country &&
-          <li className="statsSummary-item">
-            <strong className="country highlighted">
-              {globalData.recoveredMostDifference.country}
-            </strong>
-            has the highest increase in recoveries from the past day with <span className="highlighted">+{globalData.recoveredMostDifference.recoveredDifference.toFixed()}%</span>*
-          </li>
+          <strike>
+            <li className="statsSummary-item" title="This data might be inaccurate, working on a fix!">
+              <strong className="country highlighted">
+                {globalData.recoveredMostDifference.country}
+              </strong>
+              has the highest increase in recoveries from the past day with <span className="highlighted">+{globalData.recoveredMostDifference.recoveredDifference.toFixed()}%</span>*
+            </li>
+          </strike>
         }
 
       </ul>

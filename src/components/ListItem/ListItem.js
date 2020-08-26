@@ -32,16 +32,20 @@ const ListItem = ({itemData, activeFilter, hideDeaths}) => (
             Recovered:
           </span>
           <div className="listItem-recoveredWrapper">
-            <span className={`percent ${activeFilter.first === true ? "highlighted" : ""}`}>
-              {itemData.recoveredPercent.toFixed(2)}%
-            </span>
-            { itemData.recoveredPercent > itemData.recoveredYesterday ? <div className="highlighted plus" title="Percent of recovered increased since yesterday">&#8593;</div>
-              : itemData.recoveredPercent === itemData.recoveredYesterday ? <div className="highlighted equal" title="No change since yesterday">-</div>
-              : <div className="highlighted minus" title="Percent of recovered decreased since yesterday">&#8595;</div>
+            { itemData.recovered !== 0 ?
+              <span className={`percent ${activeFilter.first === true ? "highlighted" : ""}`}>
+                {itemData.recoveredPercent.toFixed(2)}%
+              </span>
+              :
+              <strong className="noData">No data </strong>
             }
-            <span>
-              ({itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
-            </span>
+            { itemData.recoveredPercent > itemData.recoveredYesterday ? <div className="highlighted plus" title="Percent of recovered increased since yesterday"> &#8593;</div>
+              : itemData.recoveredPercent === itemData.recoveredYesterday ? <div className="highlighted equal" title="No change since yesterday"> -</div>
+              : <div className="highlighted minus" title="Percent of recovered decreased since yesterday"> &#8595;</div>
+            }
+              <span>
+                ({itemData.recovered.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
+              </span>
           </div>
         </li>
         <li className="nonCritical listItem-statsItem">

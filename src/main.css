@@ -295,7 +295,8 @@
 .listItem-statsItem .percent {
   display: flex; }
 
-.listItem-statsItem .minus {
+.listItem-statsItem .minus,
+.listItem-statsItem .noData {
   color: #FF6347; }
 
 .listItem-statsItem .equal {
@@ -313,6 +314,9 @@
 .listItem-statsItem .title,
 .listItem-statsItem .percent {
   margin-right: 5px; }
+
+.listItem-statsItem .noData {
+  padding-right: 5px; }
 
 .listItem-flag {
   max-width: 35px; }

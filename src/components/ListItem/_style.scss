@@ -34,7 +34,8 @@
       display: flex;
     }
 
-    .minus {
+    .minus,
+    .noData {
       color: $color-red;
     }
 
@@ -55,6 +56,10 @@
     .title,
     .percent {
       margin-right: 5px;
+    }
+
+    .noData {
+      padding-right: 5px;
     }
   }
 

@@ -16,7 +16,7 @@ const App = () => {
   const [activeFilter, setActiveFilter] = useState({ first: true })
 
   const covid = new NovelCovid()
-  const threshold = 1000 // Only show countries with more than X cases
+  const threshold = 10000 // Only show countries with more than X cases
 
   useEffect(() => {
     (async () => {
@@ -28,7 +28,11 @@ const App = () => {
         // Historical country data
         const countriesHistorical = await getHistorical(countriesCalculted)
         const countriesHistoricalFiltered = filterLastWeek(countriesHistorical)
-        const mergedData = mergeData(countriesCalculted, countriesHistoricalFiltered, countriesHistorical)
+
+        const countriesHistoricalArray = countriesHistorical.map(item => item.country)
+        const countriesCalcultedFiltered = countriesCalculted.filter((word) => countriesHistoricalArray.includes(word.country) && word)
+
+        const mergedData = mergeData(countriesCalcultedFiltered, countriesHistoricalFiltered, countriesHistorical)
 
         // Global data
         const global = await covid.all()
@@ -123,7 +127,7 @@ const App = () => {
     const mostRecovered = countriesData.sort((a,b) => b.recoveredPercent - a.recoveredPercent).slice(0, 3)
     const noDeaths = countriesData.filter(item => item.daysWithoutDeaths > 0 && item.todayDeaths === 0)
     const criticalLessThanOne = countriesData.filter(item => item.nonCriticalPercent > 99).length / countriesData.length * 100
-    const recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
+    const recoveredMostDifference = countriesData.filter(item => item.recoveredYesterday > 0 && item.recoveredPercent !== 0 && item.recoveredYesterday !== item.recoveredPercent).sort((a,b) => b.recoveredDifference - a.recoveredDifference)[0]
     const totallyRecovered = countriesData.filter(item => item.recoveredPercent === 100)
 
     const recoveredYesterday = Object.values(dataYesterday.recovered)[Object.values(dataYesterday.recovered).length-1]
